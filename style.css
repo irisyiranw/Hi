@@ -74,69 +74,77 @@ body {
     color: var(--accent-color);
 }
 
-/* KAWAII DECORATIONS */
-.kawaii-decoration {
-    font-size: 3rem;
+/* KAWAII ANIMALS - LARGE AND ANIMATED */
+.kawaii-animal {
+    font-size: 8rem;
     position: absolute;
     opacity: 0.8;
     animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(2px 2px 4px rgba(255, 215, 0, 0.3));
 }
 
 .kawaii-top-left {
-    top: 20px;
-    left: 30px;
+    top: -20px;
+    left: -30px;
     animation-delay: 0s;
 }
 
 .kawaii-top-right {
-    top: 20px;
-    right: 30px;
+    top: -20px;
+    right: -30px;
     animation-delay: 1s;
 }
 
 .kawaii-bottom-left {
-    bottom: 20px;
-    left: 30px;
+    bottom: -40px;
+    left: -30px;
     animation-delay: 2s;
 }
 
 .kawaii-bottom-right {
-    bottom: 20px;
-    right: 30px;
+    bottom: -40px;
+    right: -30px;
     animation-delay: 1.5s;
 }
 
 .kawaii-interest-top {
-    top: 10px;
-    right: 50px;
+    top: -30px;
+    right: -50px;
+    font-size: 7rem;
     animation-delay: 0.5s;
 }
 
 .kawaii-interest-bottom {
-    bottom: 10px;
-    left: 50px;
+    bottom: -30px;
+    left: -50px;
+    font-size: 7rem;
     animation-delay: 1s;
 }
 
-.kawaii-corner {
-    font-size: 2.5rem;
+.kawaii-animal-corner {
+    font-size: 6rem;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: -30px;
+    left: -30px;
     opacity: 0.7;
     animation: bounce 2s ease-in-out infinite;
+    filter: drop-shadow(2px 2px 4px rgba(255, 215, 0, 0.3));
 }
 
-.kawaii-corner.kawaii-right {
+.kawaii-corner-left {
+    left: -30px;
+}
+
+.kawaii-corner-right {
     left: auto;
-    right: 20px;
+    right: -30px;
     animation-delay: 0.5s;
 }
 
 .interest-animals {
-    font-size: 1.8rem;
-    margin: 0.5rem 0;
-    letter-spacing: 0.3rem;
+    font-size: 2.5rem;
+    margin: 1rem 0;
+    letter-spacing: 0.5rem;
 }
 
 /* ANIMATIONS */
@@ -145,7 +153,7 @@ body {
         transform: translateY(0px);
     }
     50% {
-        transform: translateY(-20px);
+        transform: translateY(-30px);
     }
 }
 
@@ -154,7 +162,7 @@ body {
         transform: translateY(0px);
     }
     50% {
-        transform: translateY(-15px);
+        transform: translateY(-20px);
     }
 }
 
@@ -187,7 +195,7 @@ body {
     text-align: center;
     color: var(--text-color);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .hero-content {
@@ -238,9 +246,9 @@ body {
 }
 
 .cta-button-interest {
-    background-color: var(--accent-color);
+    background-color: var(--primary-color);
     color: var(--text-color);
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--accent-color);
     padding: 12px 30px;
     font-size: 1.1rem;
     border-radius: 25px;
@@ -252,7 +260,7 @@ body {
 
 .cta-button-interest:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
 }
 
 /* SECTIONS */
@@ -261,6 +269,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
+    overflow: visible;
 }
 
 .section.alternate {
@@ -357,7 +366,6 @@ body {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    border-left: 4px solid var(--primary-color);
     border: 2px solid var(--primary-color);
     transition: transform 0.3s ease;
 }
@@ -398,7 +406,6 @@ body {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    border-top: 4px solid var(--primary-color);
     border: 2px solid var(--primary-color);
     position: relative;
 }
@@ -540,12 +547,16 @@ body {
         grid-template-columns: 1fr;
     }
 
-    /* Kawaii decorations */
-    .kawaii-decoration {
-        font-size: 2rem;
+    /* Kawaii animals */
+    .kawaii-animal {
+        font-size: 5rem;
     }
 
-    .kawaii-corner {
+    .kawaii-animal-corner {
+        font-size: 3.5rem;
+    }
+
+    .interest-animals {
         font-size: 1.8rem;
     }
 }
@@ -611,12 +622,16 @@ body {
         width: 100%;
     }
 
-    /* Kawaii decorations */
-    .kawaii-decoration {
-        font-size: 1.5rem;
+    /* Kawaii animals */
+    .kawaii-animal {
+        font-size: 3rem;
     }
 
-    .kawaii-corner {
-        font-size: 1.3rem;
+    .kawaii-animal-corner {
+        font-size: 2.5rem;
+    }
+
+    .interest-animals {
+        font-size: 1.5rem;
     }
 }
