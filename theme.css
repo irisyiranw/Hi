@@ -1,0 +1,73 @@
+/* Blue, cream, and gold palette overrides */
+:root {
+    --primary-color: #1E5FA8;
+    --secondary-color: #DCEAF7;
+    --tertiary-color: #FFF5DE;
+    --accent-color: #C89B3C;
+    --text-color: #17324D;
+    --light-bg: #FFFDF7;
+    --gold-light: #FFF7E7;
+    --shadow: 0 4px 15px rgba(30, 95, 168, 0.18);
+}
+
+.navbar,
+.footer {
+    background: linear-gradient(135deg, #174F8A, #2D78BC);
+}
+
+.logo,
+.nav-links a,
+.footer,
+.cta-button,
+.cta-button-interest,
+.contact-button {
+    color: #FFFFFF;
+}
+
+.nav-links a:hover {
+    color: #FFE0A3;
+}
+
+.hero,
+.section.alternate {
+    background: linear-gradient(135deg, #FFF7E7, #DCEAF7);
+}
+
+.cta-button,
+.cta-button-interest {
+    background: #1E5FA8;
+    border-color: #C89B3C;
+}
+
+.cta-button:hover,
+.cta-button-interest:hover {
+    box-shadow: 0 6px 20px rgba(30, 95, 168, 0.35);
+}
+
+.about-box,
+.journal-date {
+    background: linear-gradient(135deg, #DCEAF7, #F4D990);
+}
+
+.contact-button {
+    background: linear-gradient(135deg, #1E5FA8, #397FBB);
+    border-color: #C89B3C;
+}
+
+.project-card-game {
+    border-color: #C89B3C;
+    background: linear-gradient(135deg, #FFFDF7, #E5F0FA);
+}
+
+.project-card-game h3 {
+    color: #1E5FA8;
+}
+
+.play-game-btn {
+    background: linear-gradient(135deg, #1E5FA8, #174F8A);
+    box-shadow: 0 4px 12px rgba(30, 95, 168, 0.35);
+}
+
+.play-game-btn:hover {
+    box-shadow: 0 6px 18px rgba(30, 95, 168, 0.5);
+}
