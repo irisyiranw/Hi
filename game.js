@@ -187,13 +187,20 @@ const CFG = {
 // ============================================================
 
 /** Central game state — mutated in place, never reassigned */
-let S = {};
+let S = {
+  running: false,
+  gameTimerId:    null,
+  orderTimerId:   null,
+  feedbackTimerId: null,
+};
 
 function resetState() {
-  // Clear any running timers before resetting
-  clearInterval(S.gameTimerId);
-  clearInterval(S.orderTimerId);
-  clearTimeout(S.feedbackTimerId);
+  // Clear any running timers from the previous game session
+  if (S.running) {
+    clearInterval(S.gameTimerId);
+    clearInterval(S.orderTimerId);
+    clearTimeout(S.feedbackTimerId);
+  }
 
   S = {
     running:       false,
@@ -423,7 +430,8 @@ function showFeedback(msg, type) {
 function addShake(el) {
   if (!el) return;
   el.classList.remove('shake');
-  void el.offsetWidth; // reflow to restart animation
+  // Force a DOM reflow so removing+re-adding the class restarts the CSS animation
+  void el.offsetWidth;
   el.classList.add('shake');
   setTimeout(() => el.classList.remove('shake'), 450);
 }
@@ -431,6 +439,7 @@ function addShake(el) {
 function addCelebrate(el) {
   if (!el) return;
   el.classList.remove('celebrate');
+  // Force a DOM reflow so removing+re-adding the class restarts the CSS animation
   void el.offsetWidth;
   el.classList.add('celebrate');
 
