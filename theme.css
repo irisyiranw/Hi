@@ -1,18 +1,18 @@
-/* Soft pale-blue, cream, and gold palette overrides */
+/* Sky-blue, cream, and gold palette overrides */
 :root {
-    --primary-color: #79A9D1;
-    --secondary-color: #EDF6FC;
+    --primary-color: #69BCE8;
+    --secondary-color: #E2F5FF;
     --tertiary-color: #FFF8E8;
-    --accent-color: #C89B3C;
-    --text-color: #24445F;
+    --accent-color: #D4A72C;
+    --text-color: #214A67;
     --light-bg: #FFFDF8;
     --gold-light: #FFF9EE;
-    --shadow: 0 4px 15px rgba(121, 169, 209, 0.18);
+    --shadow: 0 4px 15px rgba(105, 188, 232, 0.22);
 }
 
 .navbar,
 .footer {
-    background: linear-gradient(135deg, #6E9DC4, #A9CBE3);
+    background: linear-gradient(135deg, #48A9DD, #8BD4F4);
 }
 
 .logo,
@@ -25,49 +25,49 @@
 }
 
 .nav-links a:hover {
-    color: #FFF0C4;
+    color: #FFF0BF;
 }
 
 .hero,
 .section.alternate {
-    background: linear-gradient(135deg, #FFF9EE, #EDF6FC);
+    background: linear-gradient(135deg, #FFF9EE, #E2F5FF);
 }
 
 .cta-button,
 .cta-button-interest {
-    background: #79A9D1;
-    border-color: #C89B3C;
+    background: #55B5E8;
+    border-color: #D4A72C;
 }
 
 .cta-button:hover,
 .cta-button-interest:hover {
-    box-shadow: 0 6px 20px rgba(121, 169, 209, 0.35);
+    box-shadow: 0 6px 20px rgba(72, 169, 221, 0.4);
 }
 
 .about-box,
 .journal-date {
-    background: linear-gradient(135deg, #EDF6FC, #F4D990);
+    background: linear-gradient(135deg, #E2F5FF, #F6DEA0);
 }
 
 .contact-button {
-    background: linear-gradient(135deg, #79A9D1, #9CC3DE);
-    border-color: #C89B3C;
+    background: linear-gradient(135deg, #55B5E8, #87D2F3);
+    border-color: #D4A72C;
 }
 
 .project-card-game {
-    border-color: #C89B3C;
-    background: linear-gradient(135deg, #FFFDF8, #F0F8FD);
+    border-color: #D4A72C;
+    background: linear-gradient(135deg, #FFFDF8, #EAF8FF);
 }
 
 .project-card-game h3 {
-    color: #5C91BE;
+    color: #3D9FD2;
 }
 
 .play-game-btn {
-    background: linear-gradient(135deg, #79A9D1, #5C91BE);
-    box-shadow: 0 4px 12px rgba(121, 169, 209, 0.35);
+    background: linear-gradient(135deg, #55B5E8, #3D9FD2);
+    box-shadow: 0 4px 12px rgba(72, 169, 221, 0.38);
 }
 
 .play-game-btn:hover {
-    box-shadow: 0 6px 18px rgba(121, 169, 209, 0.5);
+    box-shadow: 0 6px 18px rgba(72, 169, 221, 0.55);
 }
