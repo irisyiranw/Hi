@@ -42,6 +42,7 @@ function setupQuoteSlideshow() {
     const previous = document.getElementById('previous-quote');
     const next = document.getElementById('next-quote');
     const card = document.querySelector('.quote-card');
+    const quoteSection = document.getElementById('quotes');
     if (!quoteText || !quoteAuthor || !dots || !previous || !next || !card) return;
 
     let currentQuote = 0;
@@ -70,20 +71,45 @@ function setupQuoteSlideshow() {
         dot.type = 'button';
         dot.className = 'quote-dot';
         dot.setAttribute('aria-label', `Show quote ${index + 1}`);
-        dot.addEventListener('click', () => {
+        dot.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopPropagation();
             showQuote(index);
             restartTimer();
         });
         dots.appendChild(dot);
     });
 
-    previous.addEventListener('click', () => {
+    previous.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
         showQuote(currentQuote - 1);
         restartTimer();
     });
-    next.addEventListener('click', () => {
+
+    next.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
         showQuote(currentQuote + 1);
         restartTimer();
+    });
+
+    document.addEventListener('keydown', event => {
+        const activeInsideQuotes = quoteSection && quoteSection.contains(document.activeElement);
+        const quotesVisible = quoteSection && quoteSection.getBoundingClientRect().top < window.innerHeight && quoteSection.getBoundingClientRect().bottom > 0;
+        if (!activeInsideQuotes && !quotesVisible) return;
+
+        if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            showQuote(currentQuote - 1);
+            restartTimer();
+        }
+
+        if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            showQuote(currentQuote + 1);
+            restartTimer();
+        }
     });
 
     showQuote(0);
