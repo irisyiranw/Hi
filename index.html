@@ -17,7 +17,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#interests">Interests</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#journal">Journal</a></li>
+                <li><a href="#quotes">Quotes</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -108,23 +108,21 @@
         <div class="kawaii-animal-corner kawaii-corner-right">🐨</div>
     </section>
 
-    <!-- LEARNING JOURNAL SECTION -->
-    <section id="journal" class="section alternate">
+    <!-- INSPIRATIONAL QUOTES SECTION -->
+    <section id="quotes" class="section alternate">
         <div class="kawaii-animal-corner kawaii-corner-left">🦜</div>
         <div class="container">
-            <h2 class="section-title">Learning Journal 📚</h2>
-            <div class="journal-container">
-                <div class="journal-entry">
-                    <div class="journal-date">Week 1</div>
-                    <h3>Starting My Coding Journey</h3>
-                    <p>Today I created my first personal website! I learned about HTML, CSS, and JavaScript. It's exciting to see my ideas come to life on the web.</p>
+            <h2 class="section-title">Inspirational Quotes ✨</h2>
+            <div class="quote-slideshow" aria-live="polite">
+                <button class="quote-control" id="previous-quote" type="button" aria-label="Show previous quote">❮</button>
+                <div class="quote-card">
+                    <span class="quote-mark" aria-hidden="true">“</span>
+                    <blockquote id="quote-text">Believe you can and you're halfway there.</blockquote>
+                    <p id="quote-author">— Theodore Roosevelt</p>
                 </div>
-                <div class="journal-entry">
-                    <div class="journal-date">Week 2</div>
-                    <h3>Coming Soon...</h3>
-                    <p>I'll update this section weekly with new things I learn and discover!</p>
-                </div>
+                <button class="quote-control" id="next-quote" type="button" aria-label="Show next quote">❯</button>
             </div>
+            <div class="quote-dots" id="quote-dots" aria-label="Quote slideshow controls"></div>
         </div>
         <div class="kawaii-animal-corner kawaii-corner-right">🦚</div>
     </section>
@@ -154,7 +152,6 @@
         <p class="footer-small">This is my personal space. Be kind! ✨</p>
     </footer>
 
-    <!-- SCRIPT -->
     <script src="script.js"></script>
 </body>
 </html>
