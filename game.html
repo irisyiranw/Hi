@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kitchen Rush! 🍳 — Iris's Cooking Game</title>
   <link rel="stylesheet" href="game.css" />
+  <link rel="stylesheet" href="highscores.css" />
 </head>
 <body>
 <div id="app">
@@ -33,6 +34,14 @@
           Space = Start Cooking &nbsp;·&nbsp; Enter = Serve &nbsp;·&nbsp; Esc = Clear
         </div>
       </div>
+
+      <section class="high-scores" aria-labelledby="start-high-scores-title">
+        <div class="high-scores-heading">
+          <h2 id="start-high-scores-title">🏆 High Scores</h2>
+          <span>Top 5</span>
+        </div>
+        <ol id="start-high-scores-list" class="high-scores-list" aria-live="polite"></ol>
+      </section>
 
       <button id="start-btn" class="btn btn-start">🚀 Start Cooking!</button>
     </div>
@@ -137,6 +146,14 @@
 
       <div id="go-grade" class="go-grade" aria-live="polite"></div>
 
+      <section class="high-scores" aria-labelledby="gameover-high-scores-title">
+        <div class="high-scores-heading">
+          <h2 id="gameover-high-scores-title">🏆 High Scores</h2>
+          <span>Top 5</span>
+        </div>
+        <ol id="gameover-high-scores-list" class="high-scores-list" aria-live="polite"></ol>
+      </section>
+
       <div class="gameover-btns">
         <button id="restart-btn" class="btn btn-start">🍳 Play Again!</button>
         <a href="index.html" class="btn btn-back-home">🏠 Back to Site</a>
@@ -145,6 +162,7 @@
   </div>
 
 </div><!-- #app -->
+<script src="highscores.js"></script>
 <script src="game.js"></script>
 </body>
 </html>
