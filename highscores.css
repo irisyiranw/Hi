@@ -1,0 +1,76 @@
+/* Kitchen Rush high-score board */
+.high-scores {
+  margin: 1.2rem 0 1.6rem;
+  padding: 1rem 1.2rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.high-scores-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+  color: var(--primary);
+}
+
+.high-scores-heading h2 {
+  font-size: 1.05rem;
+}
+
+.high-scores-heading span {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.high-scores-list {
+  display: grid;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.high-score-row,
+.high-scores-empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 8px;
+  background: var(--surface-alt);
+  font-size: 0.9rem;
+}
+
+.high-score-row:first-child {
+  background: #FFF1BE;
+}
+
+.high-score-rank {
+  min-width: 2rem;
+  color: var(--text-muted);
+  font-weight: bold;
+}
+
+.high-score-value {
+  color: var(--primary);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.high-scores-empty {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .high-scores { padding: 0.9rem; }
+}
