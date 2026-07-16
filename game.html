@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kitchen Rush! 🍳 — Iris's Cooking Game</title>
+  <link rel="stylesheet" href="game.css" />
+  <link rel="stylesheet" href="highscores.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== START SCREEN ===== -->
+  <div id="start-screen" class="screen active">
+    <div class="start-wrapper">
+      <a href="index.html" class="back-link">← Back to Site</a>
+      <div class="start-logo" aria-hidden="true">🍳</div>
+      <h1 class="start-title">Kitchen Rush!</h1>
+      <p class="start-tagline">Cook delicious dishes before time runs out!</p>
+
+      <div class="instructions-card">
+        <h2 class="instr-heading">🍴 How to Play</h2>
+        <ol class="instr-list">
+          <li>Read the customer's order card 📋</li>
+          <li>Click the correct ingredients from the grid 🛒</li>
+          <li>Press <strong>Start Cooking!</strong> to validate your ingredients 🍳</li>
+          <li>Click each action button in the right order (Chop → Mix → Cook…) 👨‍🍳</li>
+          <li>Hit <strong>Serve Dish!</strong> to earn points — faster = bigger bonus! 🍽</li>
+        </ol>
+        <div class="keyboard-hint">
+          <strong>Keyboard shortcuts:</strong>
+          C = Chop &nbsp;·&nbsp; M = Mix &nbsp;·&nbsp; K = Cook &nbsp;·&nbsp;
+          B = Blend &nbsp;·&nbsp; P = Plate &nbsp;·&nbsp;
+          Space = Start Cooking &nbsp;·&nbsp; Enter = Serve &nbsp;·&nbsp; Esc = Clear
+        </div>
+      </div>
+
+      <section class="high-scores" aria-labelledby="start-high-scores-title">
+        <div class="high-scores-heading">
+          <h2 id="start-high-scores-title">🏆 High Scores</h2>
+          <span>Top 5</span>
+        </div>
+        <ol id="start-high-scores-list" class="high-scores-list" aria-live="polite"></ol>
+      </section>
+
+      <button id="start-btn" class="btn btn-start">🚀 Start Cooking!</button>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="game-screen" class="screen">
+
+    <header class="game-hud">
+      <div class="hud-block">
+        <div class="hud-label">SCORE</div>
+        <div class="hud-val" id="score-display">0</div>
+      </div>
+      <div class="hud-block hud-timer-block">
+        <div class="hud-label">TIME</div>
+        <div class="hud-val timer-val" id="timer-display">90</div>
+      </div>
+      <div class="hud-block">
+        <div class="hud-label">DISHES</div>
+        <div class="hud-val" id="dishes-display">0</div>
+      </div>
+    </header>
+
+    <main class="game-grid">
+
+      <!-- Order Panel -->
+      <section class="panel order-panel" aria-label="Customer order">
+        <h2 class="panel-title">📋 Order</h2>
+        <div class="order-card" id="order-card">
+          <div class="order-top">
+            <span class="order-emoji" id="order-emoji" aria-hidden="true">🥗</span>
+            <div class="order-text">
+              <div class="order-name" id="order-name">Fresh Salad</div>
+              <div class="order-desc" id="order-desc">A refreshing salad</div>
+            </div>
+          </div>
+          <div class="order-needs" id="order-needs"></div>
+          <div class="order-recipe-steps" id="order-recipe-steps"></div>
+          <div class="urgency-bar-wrap" aria-label="Time remaining for order">
+            <div class="urgency-bar" id="urgency-bar"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prep Station -->
+      <section class="panel prep-panel" aria-label="Preparation station">
+        <h2 class="panel-title">👨‍🍳 Prep Station</h2>
+
+        <div class="step-track" id="step-track" aria-label="Step progress"></div>
+
+        <div class="prep-bowl" id="prep-bowl" aria-label="Selected ingredients">
+          <span class="prep-empty-hint">← Select ingredients first</span>
+        </div>
+
+        <div class="prep-actions">
+          <button class="btn btn-prepare" id="prepare-btn">🍳 Start Cooking!</button>
+
+          <div class="action-row" id="action-row" aria-label="Preparation actions">
+            <button class="action-btn" data-action="chop"  title="Chop (C)">🔪<span>Chop</span></button>
+            <button class="action-btn" data-action="mix"   title="Mix (M)">🥣<span>Mix</span></button>
+            <button class="action-btn" data-action="cook"  title="Cook (K)">🔥<span>Cook</span></button>
+            <button class="action-btn" data-action="blend" title="Blend (B)">🥤<span>Blend</span></button>
+            <button class="action-btn" data-action="plate" title="Plate (P)">🍽<span>Plate</span></button>
+          </div>
+
+          <button class="btn btn-serve hidden" id="serve-btn">✅ Serve Dish!</button>
+          <button class="btn btn-clear" id="clear-btn">🗑 Clear</button>
+        </div>
+
+        <div class="feedback-area" id="feedback-area" aria-live="polite" aria-atomic="true"></div>
+      </section>
+
+      <!-- Ingredient Grid -->
+      <section class="panel ingredients-panel" aria-label="Ingredient selection">
+        <h2 class="panel-title">🛒 Ingredients</h2>
+        <div class="ingredient-grid" id="ingredient-grid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== GAME OVER SCREEN ===== -->
+  <div id="gameover-screen" class="screen">
+    <div class="gameover-wrapper">
+      <div class="gameover-chef" aria-hidden="true">👨‍🍳</div>
+      <h2 class="gameover-title">Time's Up!</h2>
+
+      <div class="gameover-stats">
+        <div class="stat-box">
+          <div class="stat-num" id="go-score">0</div>
+          <div class="stat-lbl">Final Score</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="go-dishes">0</div>
+          <div class="stat-lbl">Dishes Served</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="go-mistakes">0</div>
+          <div class="stat-lbl">Mistakes</div>
+        </div>
+      </div>
+
+      <div id="go-grade" class="go-grade" aria-live="polite"></div>
+
+      <section class="high-scores" aria-labelledby="gameover-high-scores-title">
+        <div class="high-scores-heading">
+          <h2 id="gameover-high-scores-title">🏆 High Scores</h2>
+          <span>Top 5</span>
+        </div>
+        <ol id="gameover-high-scores-list" class="high-scores-list" aria-live="polite"></ol>
+      </section>
+
+      <div class="gameover-btns">
+        <button id="restart-btn" class="btn btn-start">🍳 Play Again!</button>
+        <a href="index.html" class="btn btn-back-home">🏠 Back to Site</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #app -->
+<script src="highscores.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
