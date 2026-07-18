@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Craft Studio! 🎨 — Iris's Crafting Game</title>
+  <link rel="stylesheet" href="craft-game.css" />
+  <link rel="stylesheet" href="highscores.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== START SCREEN ===== -->
+  <div id="start-screen" class="screen active">
+    <div class="start-wrapper">
+      <a href="index.html" class="back-link">← Back to Site</a>
+      <div class="start-logo" aria-hidden="true">🎨</div>
+      <h1 class="start-title">Craft Studio!</h1>
+      <p class="start-tagline">Create beautiful crafts before time runs out!</p>
+
+      <div class="instructions-card">
+        <h2 class="instr-heading">🖌️ How to Play</h2>
+        <ol class="instr-list">
+          <li>Read the project card to see what to make 📋</li>
+          <li>Click the correct supplies from the grid 🛒</li>
+          <li>Press <strong>Start Crafting!</strong> to begin making it 🎨</li>
+          <li>Click each step button in the right order (Sketch → Color → Decorate…) ✨</li>
+          <li>Hit <strong>Show Off!</strong> to earn points — faster = bigger bonus! 🌟</li>
+        </ol>
+        <div class="keyboard-hint">
+          <strong>Keyboard shortcuts:</strong>
+          S = Sketch &nbsp;·&nbsp; C = Color &nbsp;·&nbsp; X = Cut &nbsp;·&nbsp;
+          F = Fold &nbsp;·&nbsp; G = Glue &nbsp;·&nbsp; D = Decorate &nbsp;·&nbsp;
+          Space = Start Crafting &nbsp;·&nbsp; Enter = Show Off &nbsp;·&nbsp; Esc = Clear
+        </div>
+      </div>
+
+      <section class="high-scores" aria-labelledby="start-high-scores-title">
+        <div class="high-scores-heading">
+          <h2 id="start-high-scores-title">🏆 High Scores</h2>
+          <span>Top 5</span>
+        </div>
+        <ol id="start-high-scores-list" class="high-scores-list" aria-live="polite"></ol>
+      </section>
+
+      <button id="start-btn" class="btn btn-start">🚀 Start Crafting!</button>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="game-screen" class="screen">
+
+    <header class="game-hud">
+      <div class="hud-block">
+        <div class="hud-label">SCORE</div>
+        <div class="hud-val" id="score-display">0</div>
+      </div>
+      <div class="hud-block hud-timer-block">
+        <div class="hud-label">TIME</div>
+        <div class="hud-val timer-val" id="timer-display">90</div>
+      </div>
+      <div class="hud-block">
+        <div class="hud-label">CRAFTS</div>
+        <div class="hud-val" id="crafts-display">0</div>
+      </div>
+    </header>
+
+    <main class="game-grid">
+
+      <!-- Project Panel -->
+      <section class="panel order-panel" aria-label="Project card">
+        <h2 class="panel-title">📋 Project</h2>
+        <div class="order-card" id="order-card">
+          <div class="order-top">
+            <span class="order-emoji" id="order-emoji" aria-hidden="true">🌈</span>
+            <div class="order-text">
+              <div class="order-name" id="order-name">Rainbow Painting</div>
+              <div class="order-desc" id="order-desc">Paint a colorful rainbow</div>
+            </div>
+          </div>
+          <div class="order-needs" id="order-needs"></div>
+          <div class="order-recipe-steps" id="order-recipe-steps"></div>
+          <div class="urgency-bar-wrap" aria-label="Time remaining for project">
+            <div class="urgency-bar" id="urgency-bar"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Craft Station -->
+      <section class="panel prep-panel" aria-label="Craft station">
+        <h2 class="panel-title">🎨 Craft Station</h2>
+
+        <div class="step-track" id="step-track" aria-label="Step progress"></div>
+
+        <div class="prep-bowl" id="prep-bowl" aria-label="Selected supplies">
+          <span class="prep-empty-hint">← Select supplies first</span>
+        </div>
+
+        <div class="prep-actions">
+          <button class="btn btn-prepare" id="prepare-btn">🎨 Start Crafting!</button>
+
+          <div class="action-row" id="action-row" aria-label="Crafting actions">
+            <button class="action-btn" data-action="sketch"   title="Sketch (S)">✏️<span>Sketch</span></button>
+            <button class="action-btn" data-action="color"    title="Color (C)">🖌️<span>Color</span></button>
+            <button class="action-btn" data-action="cut"      title="Cut (X)">✂️<span>Cut</span></button>
+            <button class="action-btn" data-action="fold"     title="Fold (F)">📐<span>Fold</span></button>
+            <button class="action-btn" data-action="glue"     title="Glue (G)">🧴<span>Glue</span></button>
+            <button class="action-btn" data-action="decorate" title="Decorate (D)">✨<span>Decorate</span></button>
+          </div>
+
+          <button class="btn btn-serve hidden" id="serve-btn">🌟 Show Off!</button>
+          <button class="btn btn-clear" id="clear-btn">🗑 Clear</button>
+        </div>
+
+        <div class="feedback-area" id="feedback-area" aria-live="polite" aria-atomic="true"></div>
+      </section>
+
+      <!-- Supply Grid -->
+      <section class="panel ingredients-panel" aria-label="Supply selection">
+        <h2 class="panel-title">🛒 Supplies</h2>
+        <div class="ingredient-grid" id="ingredient-grid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== GAME OVER SCREEN ===== -->
+  <div id="gameover-screen" class="screen">
+    <div class="gameover-wrapper">
+      <div class="gameover-chef" aria-hidden="true">🎨</div>
+      <h2 class="gameover-title">Time's Up!</h2>
+
+      <div class="gameover-stats">
+        <div class="stat-box">
+          <div class="stat-num" id="go-score">0</div>
+          <div class="stat-lbl">Final Score</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="go-crafts">0</div>
+          <div class="stat-lbl">Crafts Made</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="go-mistakes">0</div>
+          <div class="stat-lbl">Mistakes</div>
+        </div>
+      </div>
+
+      <div id="go-grade" class="go-grade" aria-live="polite"></div>
+
+      <section class="high-scores" aria-labelledby="gameover-high-scores-title">
+        <div class="high-scores-heading">
+          <h2 id="gameover-high-scores-title">🏆 High Scores</h2>
+          <span>Top 5</span>
+        </div>
+        <ol id="gameover-high-scores-list" class="high-scores-list" aria-live="polite"></ol>
+      </section>
+
+      <div class="gameover-btns">
+        <button id="restart-btn" class="btn btn-start">🎨 Play Again!</button>
+        <a href="index.html" class="btn btn-back-home">🏠 Back to Site</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #app -->
+<script src="craft-highscores.js"></script>
+<script src="craft-game.js"></script>
+</body>
+</html>
