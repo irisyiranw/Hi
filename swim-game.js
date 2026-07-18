@@ -24,7 +24,7 @@ const hpText = document.getElementById('hp-text');
 const distanceDisplay = document.getElementById('distance-display');
 const finalDistance = document.getElementById('final-distance');
 
-const PLAYER_X = 84;
+const PLAYER_LEFT_OFFSET = 84;
 const PLAYER_SIZE = 40;
 const HP_MAX = 100;
 const PLAYER_SPEED = 320;
@@ -35,13 +35,14 @@ const SEA_ANIMAL_BOTTOM_PADDING = 40;
 const MIN_OBSTACLE_Y = 22;
 const OBSTACLE_FALLBACK_MAX_Y = 30;
 const OBSTACLE_BOTTOM_PADDING = 46;
-const COLLISION_PADDING = 6;
+const COLLISION_PADDING = 6; // Reduces false-positive edge collisions for emoji-sized sprites.
 const MAX_SEA_ANIMALS = 7;
 const SEA_ANIMAL_SPAWN_RATE = 2.4;
 const MIN_OBSTACLE_INTERVAL = 0.62;
 const MAX_OBSTACLE_INTERVAL = 1.1;
 const MAX_FRAME_TIME = 0.05;
 const DISTANCE_RATE = 13;
+const INITIAL_OBSTACLE_SPAWN_DELAY = 0.85;
 
 let selectedCharacter = CHARACTERS[0].id;
 let keys = { up: false, down: false };
@@ -159,8 +160,8 @@ function removeEntity(entity, collection) {
 function intersectsPlayer(obstacle) {
   const playerTop = gameState.playerY;
   const playerBottom = gameState.playerY + PLAYER_SIZE;
-  const playerLeft = PLAYER_X;
-  const playerRight = PLAYER_X + PLAYER_SIZE;
+  const playerLeft = PLAYER_LEFT_OFFSET;
+  const playerRight = PLAYER_LEFT_OFFSET + PLAYER_SIZE;
 
   const obstacleLeft = obstacle.x + COLLISION_PADDING;
   const obstacleRight = obstacle.x + obstacle.size - COLLISION_PADDING;
@@ -220,7 +221,7 @@ function updateObstacles(dt) {
       gameState.lastDamageAt = now;
       gameState.hp -= 20;
       playerEl.classList.remove('hit');
-      void playerEl.offsetWidth;
+      void playerEl.offsetWidth; // Force reflow so the hit animation restarts each time.
       playerEl.classList.add('hit');
       updateHpDisplay();
       if (gameState.hp <= 0) {
@@ -255,7 +256,7 @@ function beginGame() {
   syncCharacterUI();
 
   const startY = Math.max(0, swimStage.clientHeight / 2 - PLAYER_SIZE / 2);
-  playerEl.style.left = `${PLAYER_X}px`;
+  playerEl.style.left = `${PLAYER_LEFT_OFFSET}px`;
   playerEl.style.top = `${startY}px`;
 
   gameState = {
@@ -265,7 +266,7 @@ function beginGame() {
     playerY: startY,
     seaAnimals: [],
     obstacles: [],
-    obstacleSpawnTimer: 0.85,
+    obstacleSpawnTimer: INITIAL_OBSTACLE_SPAWN_DELAY,
     lastDamageAt: -INVULNERABLE_MS,
     lastFrameAt: performance.now()
   };
