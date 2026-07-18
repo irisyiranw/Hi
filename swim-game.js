@@ -221,7 +221,8 @@ function updateObstacles(dt) {
       gameState.lastDamageAt = now;
       gameState.hp -= 20;
       playerEl.classList.remove('hit');
-      void playerEl.offsetWidth; // Force reflow so the hit animation restarts each time.
+      const reflowWidth = playerEl.offsetWidth; // Force reflow so the hit animation restarts each time.
+      void reflowWidth;
       playerEl.classList.add('hit');
       updateHpDisplay();
       if (gameState.hp <= 0) {
@@ -286,11 +287,11 @@ function endGame() {
 }
 
 function onKey(event, isDown) {
-  const key = event.key.toLowerCase();
-  if (key === 'arrowup' || key === 'w') {
+  const key = event.key;
+  if (key === 'ArrowUp' || key === 'w' || key === 'W') {
     keys.up = isDown;
     event.preventDefault();
-  } else if (key === 'arrowdown' || key === 's') {
+  } else if (key === 'ArrowDown' || key === 's' || key === 'S') {
     keys.down = isDown;
     event.preventDefault();
   }
