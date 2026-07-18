@@ -29,6 +29,19 @@ const PLAYER_SIZE = 40;
 const HP_MAX = 100;
 const PLAYER_SPEED = 320;
 const INVULNERABLE_MS = 650;
+const MIN_SEA_ANIMAL_Y = 18;
+const SEA_ANIMAL_FALLBACK_MAX_Y = 22;
+const SEA_ANIMAL_BOTTOM_PADDING = 40;
+const MIN_OBSTACLE_Y = 22;
+const OBSTACLE_FALLBACK_MAX_Y = 30;
+const OBSTACLE_BOTTOM_PADDING = 46;
+const COLLISION_PADDING = 6;
+const MAX_SEA_ANIMALS = 7;
+const SEA_ANIMAL_SPAWN_RATE = 2.4;
+const MIN_OBSTACLE_INTERVAL = 0.62;
+const MAX_OBSTACLE_INTERVAL = 1.1;
+const MAX_FRAME_TIME = 0.05;
+const DISTANCE_RATE = 13;
 
 let selectedCharacter = CHARACTERS[0].id;
 let keys = { up: false, down: false };
@@ -86,7 +99,10 @@ function createSeaAnimal() {
   animal.className = 'sea-animal';
   animal.textContent = SEA_ANIMAL_EMOJIS[Math.floor(Math.random() * SEA_ANIMAL_EMOJIS.length)];
   const size = random(20, 36);
-  const y = random(18, Math.max(22, swimStage.clientHeight - 40));
+  const y = random(
+    MIN_SEA_ANIMAL_Y,
+    Math.max(SEA_ANIMAL_FALLBACK_MAX_Y, swimStage.clientHeight - SEA_ANIMAL_BOTTOM_PADDING)
+  );
   animal.style.fontSize = `${size}px`;
   animal.style.left = `${swimStage.clientWidth + random(0, 240)}px`;
   animal.style.top = `${y}px`;
@@ -104,7 +120,10 @@ function createObstacle() {
   const obstacle = document.createElement('div');
   obstacle.className = 'obstacle';
   obstacle.textContent = OBSTACLES[Math.floor(Math.random() * OBSTACLES.length)];
-  const y = random(22, Math.max(30, swimStage.clientHeight - 46));
+  const y = random(
+    MIN_OBSTACLE_Y,
+    Math.max(OBSTACLE_FALLBACK_MAX_Y, swimStage.clientHeight - OBSTACLE_BOTTOM_PADDING)
+  );
   obstacle.style.left = `${swimStage.clientWidth + random(0, 80)}px`;
   obstacle.style.top = `${y}px`;
   obstacleLayer.appendChild(obstacle);
@@ -143,11 +162,10 @@ function intersectsPlayer(obstacle) {
   const playerLeft = PLAYER_X;
   const playerRight = PLAYER_X + PLAYER_SIZE;
 
-  const hitPadding = 6;
-  const obstacleLeft = obstacle.x + hitPadding;
-  const obstacleRight = obstacle.x + obstacle.size - hitPadding;
-  const obstacleTop = obstacle.y + hitPadding;
-  const obstacleBottom = obstacle.y + obstacle.size - hitPadding;
+  const obstacleLeft = obstacle.x + COLLISION_PADDING;
+  const obstacleRight = obstacle.x + obstacle.size - COLLISION_PADDING;
+  const obstacleTop = obstacle.y + COLLISION_PADDING;
+  const obstacleBottom = obstacle.y + obstacle.size - COLLISION_PADDING;
 
   return (
     playerRight > obstacleLeft &&
@@ -170,7 +188,7 @@ function updatePlayer(dt) {
 }
 
 function updateSeaAnimals(dt) {
-  if (gameState.seaAnimals.length < 7 && Math.random() < dt * 2.4) {
+  if (gameState.seaAnimals.length < MAX_SEA_ANIMALS && Math.random() < dt * SEA_ANIMAL_SPAWN_RATE) {
     gameState.seaAnimals.push(createSeaAnimal());
   }
 
@@ -185,7 +203,7 @@ function updateObstacles(dt) {
   gameState.obstacleSpawnTimer -= dt;
   if (gameState.obstacleSpawnTimer <= 0) {
     gameState.obstacles.push(createObstacle());
-    gameState.obstacleSpawnTimer = random(0.62, 1.1);
+    gameState.obstacleSpawnTimer = random(MIN_OBSTACLE_INTERVAL, MAX_OBSTACLE_INTERVAL);
   }
 
   const now = performance.now();
@@ -215,9 +233,9 @@ function updateObstacles(dt) {
 function gameLoop(now) {
   if (!gameState.running) return;
 
-  const dt = Math.min((now - gameState.lastFrameAt) / 1000, 0.05);
+  const dt = Math.min((now - gameState.lastFrameAt) / 1000, MAX_FRAME_TIME);
   gameState.lastFrameAt = now;
-  gameState.distance += dt * 13;
+  gameState.distance += dt * DISTANCE_RATE;
 
   updatePlayer(dt);
   updateSeaAnimals(dt);
