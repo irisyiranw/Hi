@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ocean Swim Dash 🌊</title>
+  <link rel="stylesheet" href="swim-game.css" />
+</head>
+<body>
+  <div id="swim-app">
+    <section id="swim-start-screen" class="swim-screen active">
+      <div class="swim-card">
+        <a href="index.html" class="swim-back-link">← Back to Site</a>
+        <h1>🏊 Ocean Swim Dash</h1>
+        <p>Swim through the ocean, dodge obstacles, and survive as long as you can.</p>
+
+        <h2>Choose Your Character</h2>
+        <div id="character-options" class="character-options" aria-label="Character choices"></div>
+        <button id="start-swim-btn" class="swim-btn">🌊 Start Swimming</button>
+      </div>
+    </section>
+
+    <section id="swim-game-screen" class="swim-screen">
+      <header class="swim-hud">
+        <div class="hud-item">
+          <span>Distance</span>
+          <strong id="distance-display">0m</strong>
+        </div>
+        <div class="hud-item hp-wrap">
+          <span>HP</span>
+          <div class="hp-bar-shell">
+            <div id="hp-bar-fill" class="hp-bar-fill"></div>
+          </div>
+          <strong id="hp-text">100</strong>
+        </div>
+        <div class="hud-item">
+          <label for="ingame-character">Character</label>
+          <select id="ingame-character" aria-label="Change character during game"></select>
+        </div>
+      </header>
+
+      <main id="swim-stage" aria-label="Swimming game area">
+        <div id="sea-layer" class="sea-layer" aria-hidden="true"></div>
+        <div id="obstacle-layer" class="obstacle-layer" aria-hidden="true"></div>
+        <div id="player" class="player" aria-label="Player character"></div>
+      </main>
+
+      <p class="controls-hint">Use ↑/↓ or W/S to swim up and down.</p>
+    </section>
+
+    <section id="swim-gameover-screen" class="swim-screen">
+      <div class="swim-card">
+        <h2>Game Over 💥</h2>
+        <p id="final-distance">You swam 0m</p>
+        <button id="restart-swim-btn" class="swim-btn">🔁 Play Again</button>
+        <a href="index.html" class="swim-btn swim-btn-link">🏠 Back Home</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="swim-game.js"></script>
+</body>
+</html>
