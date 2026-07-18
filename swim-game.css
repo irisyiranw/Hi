@@ -1,0 +1,243 @@
+:root {
+  --ocean-dark: #045a8d;
+  --ocean-mid: #0a8fc2;
+  --ocean-light: #72d6ff;
+  --panel: rgba(255, 255, 255, 0.92);
+  --text: #07324a;
+  --danger: #e53935;
+  --hp: #43a047;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--ocean-light), var(--ocean-mid) 45%, var(--ocean-dark));
+}
+
+.swim-screen {
+  display: none;
+  min-height: 100vh;
+}
+
+.swim-screen.active {
+  display: flex;
+}
+
+#swim-start-screen,
+#swim-gameover-screen {
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.swim-card {
+  width: min(520px, 100%);
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: 0 14px 30px rgba(0, 51, 84, 0.24);
+  text-align: center;
+}
+
+.swim-back-link {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  color: var(--ocean-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.character-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.7rem;
+  margin: 0.7rem 0 1rem;
+}
+
+.char-btn {
+  border: 2px solid #b5e8ff;
+  border-radius: 12px;
+  background: #f4fcff;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.char-btn .emoji {
+  display: block;
+  font-size: 1.9rem;
+  margin-bottom: 0.15rem;
+}
+
+.char-btn.active {
+  border-color: #0a8fc2;
+  box-shadow: 0 0 0 3px rgba(10, 143, 194, 0.2);
+}
+
+.swim-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, #0a8fc2, #045a8d);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.swim-btn-link {
+  margin-left: 0.35rem;
+}
+
+#swim-game-screen {
+  flex-direction: column;
+}
+
+.swim-hud {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 2fr) 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.8rem;
+  background: rgba(0, 49, 85, 0.88);
+  color: #e6f8ff;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.hud-item strong {
+  font-size: 1.05rem;
+}
+
+.hp-wrap {
+  align-items: stretch;
+}
+
+.hp-bar-shell {
+  width: 100%;
+  height: 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+
+.hp-bar-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--hp);
+  transition: width 0.2s linear, background-color 0.2s linear;
+}
+
+#ingame-character {
+  border: none;
+  border-radius: 10px;
+  padding: 0.4rem;
+  font-weight: 700;
+  color: #08344d;
+}
+
+#swim-stage {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#swim-stage::before,
+#swim-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#swim-stage::before {
+  background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.28), transparent 30%),
+    radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.15), transparent 26%);
+}
+
+#swim-stage::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), transparent 45%, rgba(0, 22, 58, 0.22));
+}
+
+.sea-layer,
+.obstacle-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.sea-animal,
+.obstacle,
+.player {
+  position: absolute;
+  user-select: none;
+  line-height: 1;
+}
+
+.sea-animal {
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.obstacle {
+  font-size: 2rem;
+  z-index: 6;
+}
+
+.player {
+  font-size: 2.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  transition: transform 0.08s linear;
+}
+
+.player.hit {
+  animation: hit-flash 0.25s steps(2, end) 3;
+}
+
+.controls-hint {
+  margin: 0;
+  padding: 0.6rem;
+  text-align: center;
+  color: #eaf9ff;
+  background: rgba(0, 43, 76, 0.82);
+  font-weight: 600;
+}
+
+@keyframes hit-flash {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 700px) {
+  .swim-hud {
+    grid-template-columns: 1fr;
+  }
+
+  .swim-btn-link {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}

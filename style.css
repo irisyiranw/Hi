@@ -539,6 +539,35 @@ body {
     box-shadow: 0 6px 18px rgba(155, 89, 182, 0.5);
 }
 
+/* SWIMMING GAME PROJECT CARD */
+.project-card-swim {
+    border-color: #0A8FC2;
+    background: linear-gradient(135deg, var(--light-bg), #D9F4FF);
+}
+
+.project-card-swim h3 {
+    color: #0A8FC2;
+}
+
+.play-swim-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #0A8FC2, #045A8D);
+    color: #ffffff;
+    padding: 0.55rem 1.4rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(10, 143, 194, 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.play-swim-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(10, 143, 194, 0.5);
+}
+
 /* FOOTER */
 .footer {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
