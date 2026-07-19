@@ -86,14 +86,21 @@ body {
 .swim-btn {
   border: none;
   border-radius: 999px;
-  padding: 0.7rem 1.3rem;
+  padding: 0.55rem 1.4rem;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   color: #fff;
   background: linear-gradient(135deg, #0a8fc2, #045a8d);
+  box-shadow: 0 4px 12px rgba(10, 143, 194, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   display: inline-block;
+}
+
+.swim-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(10, 143, 194, 0.5);
 }
 
 .swim-btn-link {
