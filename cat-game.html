@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cat Chase 🐱</title>
+  <link rel="stylesheet" href="cat-game.css" />
+</head>
+<body>
+  <div id="cat-app">
+    <section id="cat-start-screen" class="cat-screen active">
+      <div class="cat-card">
+        <a href="index.html" class="cat-back-link">← Back to Site</a>
+        <h1>🐱 Cat Chase</h1>
+        <p>Dash through the city, dodge obstacles, and keep your cat in the chase.</p>
+
+        <h2>Choose Your Cat</h2>
+        <div id="cat-options" class="cat-options" aria-label="Cat choices"></div>
+        <button id="start-cat-btn" class="cat-btn">🐾 Start Chase</button>
+      </div>
+    </section>
+
+    <section id="cat-game-screen" class="cat-screen">
+      <header class="cat-hud">
+        <div class="hud-item">
+          <span>Chase</span>
+          <strong id="chase-display">0m</strong>
+        </div>
+        <div class="hud-item hp-wrap">
+          <span>HP</span>
+          <div class="hp-bar-shell">
+            <div id="hp-bar-fill" class="hp-bar-fill"></div>
+          </div>
+          <strong id="hp-text">100</strong>
+        </div>
+        <div class="hud-item">
+          <label for="ingame-cat">Cat</label>
+          <select id="ingame-cat" aria-label="Change cat during game"></select>
+        </div>
+      </header>
+
+      <main id="cat-stage" aria-label="Cat chase game area">
+        <div id="city-layer" class="city-layer" aria-hidden="true"></div>
+        <div id="obstacle-layer" class="obstacle-layer" aria-hidden="true"></div>
+        <div id="player" class="player" aria-label="Player cat"></div>
+      </main>
+
+      <p class="controls-hint">Use ↑/↓ or W/S to move up and down.</p>
+    </section>
+
+    <section id="cat-gameover-screen" class="cat-screen">
+      <div class="cat-card">
+        <h2>Chase Over 💥</h2>
+        <p id="final-chase">You chased 0m</p>
+        <button id="restart-cat-btn" class="cat-btn">🔁 Play Again</button>
+        <a href="index.html" class="cat-btn cat-btn-link">🏠 Back Home</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="cat-game.js"></script>
+</body>
+</html>
