@@ -1,6 +1,6 @@
 const CHARACTERS = [
   { id: 'swimmer', emoji: '🏊', label: 'Swimmer' },
-  { id: 'ragdoll', emoji: '🐱', label: 'Ragdoll' },
+  { id: 'ragdoll', emoji: '🐱', label: 'Ragdoll Cat' },
   { id: 'dolphin', emoji: '🐬', label: 'Dolphin' },
   { id: 'shark', emoji: '🦈', label: 'Shark' },
   { id: 'turtle', emoji: '🐢', label: 'Turtle' }
