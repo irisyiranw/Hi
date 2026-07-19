@@ -45,6 +45,8 @@ const ZONES = [
 const CHARACTERS = [
   { id: 'swimmer', emoji: '🏊', label: 'Swimmer',
     ability: { name: 'Sprint', emoji: '⚡', cooldown: 8,  duration: 3.5, desc: 'Doubles swim speed!' } },
+  { id: 'ragdoll', emoji: '🐱', label: 'Ragdoll Cat',
+    ability: { name: 'Zoomies', emoji: '⚡', cooldown: 8,  duration: 3.5, desc: 'Quick burst of speed!' } },
   { id: 'dolphin', emoji: '🐬', label: 'Dolphin',
     ability: { name: 'Sonar',  emoji: '🔊', cooldown: 10, duration: 0,   desc: 'Blasts all obstacles!' } },
   { id: 'shark',   emoji: '🦈', label: 'Shark',
@@ -271,11 +273,21 @@ function createObstacle() {
 }
 
 function intersectsPlayer(obs) {
-  const pt = gameState.playerY,            pb = gameState.playerY + PLAYER_SIZE;
-  const pl = PLAYER_LEFT_OFFSET,           pr = PLAYER_LEFT_OFFSET + PLAYER_SIZE;
-  const ol = obs.x + COLLISION_PADDING,    or_ = obs.x + obs.size - COLLISION_PADDING;
-  const ot = obs.y + COLLISION_PADDING,    ob_ = obs.y + obs.size - COLLISION_PADDING;
-  return pr > ol && pl < or_ && pb > ot && pt < ob_;
+  const playerTop = gameState.playerY;
+  const playerBottom = gameState.playerY + PLAYER_SIZE;
+  const playerLeft = PLAYER_LEFT_OFFSET;
+  const playerRight = PLAYER_LEFT_OFFSET + PLAYER_SIZE;
+  const obstacleLeft = obs.x + COLLISION_PADDING;
+  const obstacleRight = obs.x + obs.size - COLLISION_PADDING;
+  const obstacleTop = obs.y + COLLISION_PADDING;
+  const obstacleBottom = obs.y + obs.size - COLLISION_PADDING;
+
+  return (
+    playerRight > obstacleLeft &&
+    playerLeft < obstacleRight &&
+    playerBottom > obstacleTop &&
+    playerTop < obstacleBottom
+  );
 }
 
 function updateObstacles(dt) {
@@ -523,10 +535,16 @@ function activateAbility() {
 
   switch (selectedCharacter) {
     case 'swimmer':
+    case 'ragdoll':
       gameState.ability.active = true;
       gameState.ability.activeRemaining = chDef.ability.duration;
       playerEl.classList.add('ability-active');
-      showFloatingText('⚡ SPRINT!', PLAYER_LEFT_OFFSET, py, '#ffe066');
+      showFloatingText(
+        selectedCharacter === 'ragdoll' ? '⚡ ZOOMIES!' : '⚡ SPRINT!',
+        PLAYER_LEFT_OFFSET,
+        py,
+        '#ffe066'
+      );
       break;
 
     case 'dolphin':
@@ -581,8 +599,11 @@ function updateAbility(dt) {
 
 function updatePlayer(dt) {
   let speed = PLAYER_SPEED;
-  if (gameState.ability.active && selectedCharacter === 'swimmer') speed *= SPRINT_SPEED_MULT;
-  else if (gameState.powerups.speed > 0)                            speed *= SPEED_BOOST_MULT;
+  if (gameState.ability.active && (selectedCharacter === 'swimmer' || selectedCharacter === 'ragdoll')) {
+    speed *= SPRINT_SPEED_MULT;
+  } else if (gameState.powerups.speed > 0) {
+    speed *= SPEED_BOOST_MULT;
+  }
 
   const up   = keys.up   && !keys.down;
   const down = keys.down && !keys.up;
