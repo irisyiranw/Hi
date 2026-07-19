@@ -160,6 +160,89 @@ body {
   text-align: center;
 }
 
+/* ——— In-game help panel ——— */
+.ingame-help {
+  margin: 0;
+  background: rgba(0, 37, 63, 0.92);
+  color: #e6f8ff;
+  border-bottom: 1px solid rgba(160, 228, 255, 0.25);
+}
+
+.ingame-help summary {
+  cursor: pointer;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  list-style: none;
+}
+
+.ingame-help summary::-webkit-details-marker { display: none; }
+
+.ingame-help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8rem;
+  padding: 0 0.9rem 0.9rem;
+}
+
+.ingame-help-card {
+  padding: 0.75rem 0.85rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(160, 228, 255, 0.16);
+}
+
+.ingame-help-card h2 {
+  margin: 0 0 0.55rem;
+  font-size: 0.92rem;
+  color: #a0f4ff;
+}
+
+.rule-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.rule-list li + li {
+  margin-top: 0.3rem;
+}
+
+.character-guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.character-guide-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid transparent;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.character-guide-item.active {
+  border-color: rgba(160, 244, 255, 0.7);
+  background: rgba(160, 244, 255, 0.12);
+  box-shadow: 0 0 0 2px rgba(160, 244, 255, 0.1);
+}
+
+.guide-character-emoji {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.guide-character-desc {
+  display: block;
+  color: rgba(230, 248, 255, 0.85);
+}
+
 /* ——— Buttons ——— */
 .swim-btn {
   border: none;
@@ -592,6 +675,9 @@ kbd {
   .swim-hud {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
+  }
+  .ingame-help-grid {
+    grid-template-columns: 1fr;
   }
   .swim-btn-link {
     margin-left: 0;

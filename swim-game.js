@@ -88,6 +88,7 @@ const scoreDisplay     = document.getElementById('score-display');
 const abilityDisplay   = document.getElementById('ability-display');
 const distanceDisplay  = document.getElementById('distance-display');
 const zoneDisplay      = document.getElementById('zone-display');
+const ingameCharacterGuide = document.getElementById('ingame-character-guide');
 const finalDistance    = document.getElementById('final-distance');
 const finalScore       = document.getElementById('final-score');
 const finalZone        = document.getElementById('final-zone');
@@ -178,6 +179,7 @@ function removeEntity(entity, collection) {
 function buildCharacterSelectors() {
   characterOptions.innerHTML = '';
   inGameCharacter.innerHTML  = '';
+  ingameCharacterGuide.innerHTML = '';
 
   CHARACTERS.forEach(ch => {
     const btn = document.createElement('button');
@@ -197,6 +199,18 @@ function buildCharacterSelectors() {
     opt.value = ch.id;
     opt.textContent = `${ch.emoji} ${ch.label}`;
     inGameCharacter.appendChild(opt);
+
+    const guideItem = document.createElement('div');
+    guideItem.className = 'character-guide-item';
+    guideItem.dataset.characterId = ch.id;
+    guideItem.innerHTML = `
+      <span class="guide-character-emoji">${ch.emoji}</span>
+      <div>
+        <strong>${ch.label}</strong> — ${ch.ability.emoji} ${ch.ability.name}
+        <span class="guide-character-desc">${ch.ability.desc} (${ch.ability.cooldown}s cooldown)</span>
+      </div>
+    `;
+    ingameCharacterGuide.appendChild(guideItem);
   });
 
   inGameCharacter.addEventListener('change', e => {
@@ -208,6 +222,9 @@ function buildCharacterSelectors() {
 function syncCharacterUI() {
   characterOptions.querySelectorAll('.char-btn').forEach(btn =>
     btn.classList.toggle('active', btn.dataset.characterId === selectedCharacter)
+  );
+  ingameCharacterGuide.querySelectorAll('.character-guide-item').forEach(item =>
+    item.classList.toggle('active', item.dataset.characterId === selectedCharacter)
   );
   inGameCharacter.value = selectedCharacter;
   const ch = getCharDef();

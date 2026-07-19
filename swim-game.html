@@ -19,8 +19,8 @@
         <h2>Choose Your Character</h2>
         <div id="character-options" class="character-options" aria-label="Character choices"></div>
 
-        <details class="how-to-play">
-          <summary>📖 How to Play &amp; Object Guide</summary>
+        <details class="how-to-play" open>
+          <summary>📖 Rules, Objects &amp; Character Guide</summary>
           <div class="guide-content">
 
             <div class="guide-section">
@@ -119,6 +119,25 @@
           <button id="ability-btn" class="ability-btn" type="button">⚡ Ability</button>
         </div>
       </header>
+
+      <details class="ingame-help" open>
+        <summary>📖 Rules &amp; Character Guide</summary>
+        <div class="ingame-help-grid">
+          <div class="ingame-help-card">
+            <h2>Quick Rules</h2>
+            <ul class="rule-list">
+              <li>Dodge obstacles to protect your HP and keep the shark behind you.</li>
+              <li>Collect treasures to raise your score and push the chaser back.</li>
+              <li>Press <kbd>Space</kbd> or the ⚡ button to use your character ability.</li>
+              <li>Swap characters at any time to change your special ability.</li>
+            </ul>
+          </div>
+          <div class="ingame-help-card">
+            <h2>What Each Character Can Do</h2>
+            <div id="ingame-character-guide" class="character-guide-list" aria-label="Character abilities"></div>
+          </div>
+        </div>
+      </details>
 
       <main id="swim-stage" aria-label="Swimming game area">
         <div id="sea-layer"         class="sea-layer"         aria-hidden="true"></div>
