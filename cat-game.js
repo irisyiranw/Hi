@@ -30,10 +30,10 @@ const HP_MAX = 100;
 const PLAYER_SPEED = 320;
 const INVULNERABLE_MS = 650;
 const MIN_CITY_ITEM_Y = 18;
-const CITY_ITEM_FALLBACK_MAX_Y = 22;
+const CITY_ITEM_MIN_MAX_Y = 22;
 const CITY_ITEM_BOTTOM_PADDING = 40;
 const MIN_OBSTACLE_Y = 22;
-const OBSTACLE_FALLBACK_MAX_Y = 30;
+const OBSTACLE_MIN_MAX_Y = 30;
 const OBSTACLE_BOTTOM_PADDING = 46;
 const COLLISION_PADDING = 6;
 const MAX_CITY_ITEMS = 7;
@@ -102,7 +102,7 @@ function createCityItem() {
   const size = random(20, 36);
   const y = random(
     MIN_CITY_ITEM_Y,
-    Math.max(CITY_ITEM_FALLBACK_MAX_Y, catStage.clientHeight - CITY_ITEM_BOTTOM_PADDING)
+    Math.max(CITY_ITEM_MIN_MAX_Y, catStage.clientHeight - CITY_ITEM_BOTTOM_PADDING)
   );
   item.style.fontSize = `${size}px`;
   item.style.left = `${catStage.clientWidth + random(0, 240)}px`;
@@ -123,7 +123,7 @@ function createObstacle() {
   obstacle.textContent = OBSTACLES[Math.floor(Math.random() * OBSTACLES.length)];
   const y = random(
     MIN_OBSTACLE_Y,
-    Math.max(OBSTACLE_FALLBACK_MAX_Y, catStage.clientHeight - OBSTACLE_BOTTOM_PADDING)
+    Math.max(OBSTACLE_MIN_MAX_Y, catStage.clientHeight - OBSTACLE_BOTTOM_PADDING)
   );
   obstacle.style.left = `${catStage.clientWidth + random(0, 80)}px`;
   obstacle.style.top = `${y}px`;
