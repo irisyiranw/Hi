@@ -252,6 +252,10 @@ function updateCityItems(dt) {
   });
 }
 
+function isBlackShadowActive() {
+  return gameState.ability.active && selectedCat === 'black';
+}
+
 // =========================================================
 // Obstacles
 // =========================================================
@@ -302,7 +306,7 @@ function updateObstacles(dt) {
     obs.el.style.left = `${obs.x}px`;
     if (obs.x < -50) { removeEntity(obs, gameState.obstacles); return; }
 
-    const blackShadow = gameState.ability.active && selectedCat === 'black';
+    const blackShadow = isBlackShadowActive();
     if (blackShadow) return;
 
     if (intersectsPlayer(obs) && now - gameState.lastDamageAt > INVULNERABLE_MS) {
@@ -502,7 +506,7 @@ function updateChaser(dt) {
   else if (ch.y > targetY) ch.y = Math.max(targetY, ch.y - CHASER_Y_SPEED * dt);
 
   // Black cat shadow physically blocks chaser
-  const blackShadow = gameState.ability.active && selectedCat === 'black';
+  const blackShadow = isBlackShadowActive();
   if (blackShadow && ch.x < PLAYER_LEFT_OFFSET + PLAYER_SIZE + 15)
     ch.x = PLAYER_LEFT_OFFSET + PLAYER_SIZE + 15;
 
@@ -522,7 +526,11 @@ function updateChaser(dt) {
 
 function activateAbility() {
   const catDef = getCatDef();
-  if (gameState.ability.cooldown > 0 || gameState.ability.active) return;
+  if (gameState.ability.cooldown > 0) {
+    showFloatingText(`⏳ ${Math.ceil(gameState.ability.cooldown)}s`, PLAYER_LEFT_OFFSET, gameState.playerY - 10, '#aaa');
+    return;
+  }
+  if (gameState.ability.active) return;
 
   gameState.ability.cooldown = catDef.ability.cooldown;
   const py = gameState.playerY - 10;
