@@ -275,9 +275,9 @@ function createObstacle() {
 function intersectsPlayer(obs) {
   const pt = gameState.playerY,            pb = gameState.playerY + PLAYER_SIZE;
   const pl = PLAYER_LEFT_OFFSET,           pr = PLAYER_LEFT_OFFSET + PLAYER_SIZE;
-  const ol = obs.x + COLLISION_PADDING,    or_ = obs.x + obs.size - COLLISION_PADDING;
-  const ot = obs.y + COLLISION_PADDING,    ob_ = obs.y + obs.size - COLLISION_PADDING;
-  return pr > ol && pl < or_ && pb > ot && pt < ob_;
+  const ol = obs.x + COLLISION_PADDING,    obstacleRight = obs.x + obs.size - COLLISION_PADDING;
+  const ot = obs.y + COLLISION_PADDING,    obstacleBottom = obs.y + obs.size - COLLISION_PADDING;
+  return pr > ol && pl < obstacleRight && pb > ot && pt < obstacleBottom;
 }
 
 function updateObstacles(dt) {
@@ -591,8 +591,9 @@ function updatePlayer(dt) {
   let speed = PLAYER_SPEED;
   if (gameState.ability.active && (selectedCharacter === 'swimmer' || selectedCharacter === 'ragdoll')) {
     speed *= SPRINT_SPEED_MULT;
+  } else if (gameState.powerups.speed > 0) {
+    speed *= SPEED_BOOST_MULT;
   }
-  else if (gameState.powerups.speed > 0)                            speed *= SPEED_BOOST_MULT;
 
   const up   = keys.up   && !keys.down;
   const down = keys.down && !keys.up;
