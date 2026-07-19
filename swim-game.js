@@ -486,8 +486,8 @@ function updatePowerups(dt) {
 function updateChaser(dt) {
   const ch   = gameState.chaser;
   const zone = gameState.zone;
-  const maxSpd = CHASER_MAX_SPEED * zone.speedMult;
-  ch.speed = Math.min(maxSpd, ch.speed + CHASER_ACCELERATION * zone.chaserAccelMult * dt);
+  const maxSpeed = CHASER_MAX_SPEED * zone.speedMult;
+  ch.speed = Math.min(maxSpeed, ch.speed + CHASER_ACCELERATION * zone.chaserAccelMult * dt);
   ch.x -= ch.speed * dt;
 
   // Track player Y

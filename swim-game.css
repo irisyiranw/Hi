@@ -397,7 +397,7 @@ kbd {
   z-index: 10;
 }
 
-/* Aura ring around player */
+/* Aura ring around player (74px = ~1.5× the 3rem player emoji size) */
 .player::before {
   content: '';
   position: absolute;
