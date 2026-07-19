@@ -3,28 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ocean Swim Dash 🌊</title>
+  <title>Ocean Chase 🌊</title>
   <link rel="stylesheet" href="swim-game.css" />
 </head>
 <body>
   <div id="swim-app">
+
+    <!-- ===== START SCREEN ===== -->
     <section id="swim-start-screen" class="swim-screen active">
       <div class="swim-card">
         <a href="index.html" class="swim-back-link">← Back to Site</a>
-        <h1>🏊 Ocean Swim Dash</h1>
-        <p>Swim through the ocean, dodge obstacles, and survive as long as you can.</p>
+        <h1>🏊 Ocean Chase</h1>
+        <p>A hungry shark is chasing you through 5 danger zones! Dodge obstacles, collect treasures, and use your special ability to survive!</p>
 
         <h2>Choose Your Character</h2>
         <div id="character-options" class="character-options" aria-label="Character choices"></div>
+        <details class="how-to-play">
+          <summary>📖 How to Play &amp; Object Guide</summary>
+          <div class="guide-content">
+
+            <div class="guide-section">
+              <h3>🎮 Controls</h3>
+              <p>↑ / W — Swim Up &nbsp;·&nbsp; ↓ / S — Swim Down &nbsp;·&nbsp; <kbd>Space</kbd> / ⚡ button — Special Ability</p>
+            </div>
+
+            <div class="guide-section">
+              <h3>⚠️ Avoid These</h3>
+              <div class="guide-items">
+                <div class="guide-item">
+                  <span class="guide-icon">🪨 🪵 🪼</span>
+                  <div><strong>Obstacles</strong> — Costs 20 HP and lets the chaser gain on you!</div>
+                </div>
+                <div class="guide-item">
+                  <span class="guide-icon">🦈</span>
+                  <div><strong>The Chaser</strong> — Speeds up each zone. Caught = Game Over!</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>⭐ Collect These</h3>
+              <div class="guide-items">
+                <div class="guide-item">
+                  <span class="guide-icon">🌟 💎 🪙 🐚</span>
+                  <div><strong>Treasures</strong> — +10 score &amp; push the chaser back!</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>🎁 Power-Ups <small>(rare glowing items)</small></h3>
+              <div class="guide-items">
+                <div class="guide-item"><span class="guide-icon">⚡</span><div><strong>Speed Boost</strong> — Swim 1.85× faster for 5 s.</div></div>
+                <div class="guide-item"><span class="guide-icon">🛡️</span><div><strong>Shield</strong> — Blocks the next obstacle hit completely.</div></div>
+                <div class="guide-item"><span class="guide-icon">💊</span><div><strong>HP Kit</strong> — Restores 30 HP.</div></div>
+                <div class="guide-item"><span class="guide-icon">🧲</span><div><strong>Magnet</strong> — Auto-collects nearby treasures for 6 s.</div></div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>🌊 The 5 Zones</h3>
+              <div class="guide-items">
+                <div class="guide-item"><span class="guide-icon">🏖️</span><div><strong>Shallow Waters</strong> (0 m) — Calm start.</div></div>
+                <div class="guide-item"><span class="guide-icon">🪸</span><div><strong>Coral Reef</strong> (200 m) — Faster pace, more obstacles.</div></div>
+                <div class="guide-item"><span class="guide-icon">🌆</span><div><strong>Twilight Zone</strong> (500 m) — Darker, explosive obstacles!</div></div>
+                <div class="guide-item"><span class="guide-icon">🌙</span><div><strong>Midnight Zone</strong> (900 m) — Very fast. Bombs appear!</div></div>
+                <div class="guide-item"><span class="guide-icon">🕳️</span><div><strong>The Abyss</strong> (1400m) — Maximum chaos. Good luck!</div></div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>⚡ Special Abilities <small>(Press Space)</small></h3>
+              <div class="guide-items">
+                <div class="guide-item"><span class="guide-icon">🏊</span><div><strong>Swimmer — Sprint:</strong> Doubles speed for 3.5 s. (8 s cooldown)</div></div>
+                <div class="guide-item"><span class="guide-icon">🐱</span><div><strong>Ragdoll Cat — Zoomies:</strong> Quick burst of speed for 3.5 s. (8 s cooldown)</div></div>
+                <div class="guide-item"><span class="guide-icon">🐬</span><div><strong>Dolphin — Sonar:</strong> Clears ALL obstacles! (10 s cooldown)</div></div>
+                <div class="guide-item"><span class="guide-icon">🦈</span><div><strong>Shark — Roar:</strong> Pushes chaser far back! (9 s cooldown)</div></div>
+                <div class="guide-item"><span class="guide-icon">🐢</span><div><strong>Turtle — Shell:</strong> Full invincibility for 4 s! (12 s cooldown)</div></div>
+              </div>
+            </div>
+
+          </div>
+        </details>
+
         <button id="start-swim-btn" class="swim-btn">▶ Play Now!</button>
       </div>
     </section>
 
+    <!-- ===== GAME SCREEN ===== -->
     <section id="swim-game-screen" class="swim-screen">
       <header class="swim-hud">
         <div class="hud-item">
           <span>Distance</span>
           <strong id="distance-display">0m</strong>
+          <span class="hud-sub">Score: <strong id="score-display">0</strong></span>
+          <span id="zone-display" class="hud-zone">🏖️ Shallow Waters</span>
         </div>
         <div class="hud-item hp-wrap">
           <span>HP</span>
@@ -33,31 +106,47 @@
           </div>
           <strong id="hp-text">100</strong>
         </div>
+        <div class="hud-item lead-wrap">
+          <span>Lead</span>
+          <div class="lead-bar-shell">
+            <div id="lead-bar-fill" class="lead-bar-fill"></div>
+          </div>
+          <span id="ability-display" class="ability-display ability-ready">⚡ Sprint ✓ READY</span>
+        </div>
         <div class="hud-item">
           <label for="ingame-character">Character</label>
           <select id="ingame-character" aria-label="Change character during game"></select>
+          <button id="ability-btn" class="ability-btn" type="button">⚡ Ability</button>
         </div>
       </header>
 
       <main id="swim-stage" aria-label="Swimming game area">
-        <div id="sea-layer" class="sea-layer" aria-hidden="true"></div>
-        <div id="obstacle-layer" class="obstacle-layer" aria-hidden="true"></div>
-        <div id="player" class="player" aria-label="Player character"></div>
+        <div id="sea-layer"         class="sea-layer"         aria-hidden="true"></div>
+        <div id="collectible-layer" class="collectible-layer" aria-hidden="true"></div>
+        <div id="powerup-layer"     class="powerup-layer"     aria-hidden="true"></div>
+        <div id="obstacle-layer"    class="obstacle-layer"    aria-hidden="true"></div>
+        <div id="chaser"            class="chaser"            aria-hidden="true">🦈</div>
+        <div id="player"            class="player"            aria-label="Player character"></div>
+        <div id="hit-overlay"       class="hit-overlay"       aria-hidden="true"></div>
+        <div id="zone-banner"       class="zone-banner"       aria-hidden="true">🏖️ Shallow Waters</div>
       </main>
 
-      <p class="controls-hint">Use ↑/↓ or W/S to swim up and down.</p>
+      <p class="controls-hint">↑/↓ or W/S to move &nbsp;·&nbsp; <kbd>Space</kbd>/⚡ = special ability &nbsp;·&nbsp; Collect ⭐💎 for score</p>
     </section>
 
+    <!-- ===== GAME OVER SCREEN ===== -->
     <section id="swim-gameover-screen" class="swim-screen">
       <div class="swim-card">
         <h2>Game Over 💥</h2>
+        <p id="final-zone">Zone: 🏖️ Shallow Waters</p>
         <p id="final-distance">You swam 0m</p>
+        <p id="final-score">Score: 0</p>
         <button id="restart-swim-btn" class="swim-btn">🔁 Play Again</button>
         <a href="index.html" class="swim-btn swim-btn-link">🏠 Back Home</a>
       </div>
     </section>
-  </div>
 
+  </div>
   <script src="swim-game.js"></script>
 </body>
 </html>

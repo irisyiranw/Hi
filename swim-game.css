@@ -1,18 +1,17 @@
+/* =========================================================
+   Ocean Chase – swim-game.css
+   ========================================================= */
+
 :root {
-  --ocean-dark: #045a8d;
-  --ocean-mid: #0a8fc2;
+  --ocean-dark:  #045a8d;
+  --ocean-mid:   #0a8fc2;
   --ocean-light: #72d6ff;
-  --panel: rgba(255, 255, 255, 0.92);
-  --text: #07324a;
-  --danger: #e53935;
-  --hp: #43a047;
+  --panel:       rgba(255, 255, 255, 0.92);
+  --text:        #07324a;
+  --hp:          #43a047;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -22,14 +21,9 @@ body {
   background: linear-gradient(180deg, var(--ocean-light), var(--ocean-mid) 45%, var(--ocean-dark));
 }
 
-.swim-screen {
-  display: none;
-  min-height: 100vh;
-}
-
-.swim-screen.active {
-  display: flex;
-}
+/* ——— Screens ——— */
+.swim-screen       { display: none; min-height: 100vh; }
+.swim-screen.active { display: flex; }
 
 #swim-start-screen,
 #swim-gameover-screen {
@@ -38,11 +32,12 @@ body {
   padding: 1rem;
 }
 
+/* ——— Card ——— */
 .swim-card {
-  width: min(520px, 100%);
+  width: min(580px, 100%);
   background: var(--panel);
   border-radius: 18px;
-  padding: 1.3rem;
+  padding: 1.4rem;
   box-shadow: 0 14px 30px rgba(0, 51, 84, 0.24);
   text-align: center;
 }
@@ -55,9 +50,10 @@ body {
   text-decoration: none;
 }
 
+/* ——— Character selector ——— */
 .character-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.7rem;
   margin: 0.7rem 0 1rem;
 }
@@ -67,22 +63,104 @@ body {
   border-radius: 12px;
   background: #f4fcff;
   cursor: pointer;
-  padding: 0.5rem;
-  font-size: 0.9rem;
+  padding: 0.55rem 0.4rem;
+  font-size: 0.85rem;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .char-btn .emoji {
   display: block;
-  font-size: 1.9rem;
-  margin-bottom: 0.15rem;
+  font-size: 2rem;
+  margin-bottom: 0.1rem;
+}
+
+.char-btn .ability-tag {
+  display: block;
+  font-size: 0.75rem;
+  color: #0a8fc2;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+.char-btn .ability-desc {
+  display: block;
+  font-size: 0.65rem;
+  color: #4a7a8a;
+  font-weight: 500;
+  margin-top: 0.08rem;
 }
 
 .char-btn.active {
   border-color: #0a8fc2;
-  box-shadow: 0 0 0 3px rgba(10, 143, 194, 0.2);
+  box-shadow: 0 0 0 3px rgba(10, 143, 194, 0.22);
+  background: #e8f8ff;
 }
 
+/* ——— How-to-play guide ——— */
+.how-to-play {
+  text-align: left;
+  margin: 0.8rem 0;
+  border: 1px solid #c8e8f5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.how-to-play summary {
+  cursor: pointer;
+  padding: 0.6rem 0.9rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: #e8f6fc;
+  list-style: none;
+  user-select: none;
+}
+
+.how-to-play summary::-webkit-details-marker { display: none; }
+
+.guide-content {
+  padding: 0.7rem 0.9rem;
+  font-size: 0.83rem;
+}
+
+.guide-section {
+  margin-bottom: 0.9rem;
+}
+
+.guide-section h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.88rem;
+  color: var(--ocean-dark);
+}
+
+.guide-section small { opacity: 0.7; font-weight: 400; }
+
+.guide-section p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.guide-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.guide-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  line-height: 1.4;
+}
+
+.guide-icon {
+  font-size: 1.1rem;
+  min-width: 52px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+/* ——— Buttons ——— */
 .swim-btn {
   border: none;
   border-radius: 999px;
@@ -96,6 +174,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   display: inline-block;
+  margin-top: 0.5rem;
 }
 
 .swim-btn:hover {
@@ -107,67 +186,123 @@ body {
   margin-left: 0.35rem;
 }
 
-#swim-game-screen {
-  flex-direction: column;
+kbd {
+  background: rgba(0,0,0,0.12);
+  border-radius: 4px;
+  padding: 0.05em 0.35em;
+  font-family: inherit;
+  font-size: 0.9em;
 }
 
+/* ——— Game screen layout ——— */
+#swim-game-screen { flex-direction: column; }
+
+/* ——— HUD ——— */
 .swim-hud {
   position: sticky;
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: 1fr minmax(220px, 2fr) 1fr;
-  gap: 0.75rem;
+  grid-template-columns: 1fr minmax(130px, 1.3fr) minmax(130px, 1.3fr) auto;
+  gap: 0.55rem;
   align-items: center;
-  padding: 0.8rem;
-  background: rgba(0, 49, 85, 0.88);
+  padding: 0.65rem 0.8rem;
+  background: rgba(0, 49, 85, 0.9);
   color: #e6f8ff;
 }
 
 .hud-item {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  font-size: 0.8rem;
+  gap: 0.12rem;
+  font-size: 0.76rem;
   font-weight: 700;
 }
 
-.hud-item strong {
-  font-size: 1.05rem;
+.hud-item strong { font-size: 0.98rem; }
+
+.hud-sub {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+.hud-sub strong { font-size: 0.8rem; }
+
+.hud-zone {
+  font-size: 0.66rem;
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.hp-wrap {
-  align-items: stretch;
-}
+/* HP bar */
+.hp-wrap  { align-items: stretch; }
 
-.hp-bar-shell {
+.hp-bar-shell,
+.lead-bar-shell {
   width: 100%;
-  height: 14px;
+  height: 11px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.2);
   overflow: hidden;
 }
 
-.hp-bar-fill {
+.hp-bar-fill,
+.lead-bar-fill {
   width: 100%;
   height: 100%;
   background: var(--hp);
-  transition: width 0.2s linear, background-color 0.2s linear;
+  transition: width 0.18s linear, background-color 0.18s linear;
+}
+
+/* Lead (chaser danger) bar */
+.lead-wrap { align-items: stretch; }
+
+/* Ability display */
+.ability-display {
+  font-size: 0.67rem;
+  font-weight: 700;
+  opacity: 0.72;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ability-display.ability-ready {
+  opacity: 1;
+  color: #a0f4ff;
+  animation: ability-ready-pulse 1.5s ease-in-out infinite;
+}
+
+.ability-btn {
+  margin-top: 0.2rem;
+  border: 1px solid rgba(100, 200, 255, 0.45);
+  border-radius: 7px;
+  background: rgba(10, 143, 194, 0.3);
+  color: #e6f8ff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.22rem 0.5rem;
+  white-space: nowrap;
 }
 
 #ingame-character {
   border: none;
-  border-radius: 10px;
-  padding: 0.4rem;
+  border-radius: 8px;
+  padding: 0.3rem;
   font-weight: 700;
   color: #08344d;
+  font-size: 0.78rem;
+  max-width: 130px;
 }
 
+/* ——— Stage ——— */
 #swim-stage {
   position: relative;
   flex: 1;
   overflow: hidden;
-  border-top: 2px solid rgba(255, 255, 255, 0.5);
+  border-top: 2px solid rgba(255, 255, 255, 0.45);
 }
 
 #swim-stage::before,
@@ -176,25 +311,44 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 13;
 }
 
 #swim-stage::before {
-  background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.28), transparent 30%),
-    radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.15), transparent 26%);
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.28), transparent 30%),
+    radial-gradient(circle at 75% 20%, rgba(255,255,255,0.15), transparent 26%);
 }
 
 #swim-stage::after {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), transparent 45%, rgba(0, 22, 58, 0.22));
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), transparent 45%, rgba(0,22,58,0.22));
 }
 
+/* Danger pulse on ::after */
+#swim-stage.danger::after {
+  animation: danger-pulse 0.55s ease-in-out infinite;
+}
+
+/* Screen shake */
+#swim-stage.shaking {
+  animation: screen-shake 0.35s ease-out;
+}
+
+/* ——— Layers ——— */
 .sea-layer,
+.collectible-layer,
+.powerup-layer,
 .obstacle-layer {
   position: absolute;
   inset: 0;
 }
 
+/* ——— Entity base ——— */
 .sea-animal,
+.collectible,
+.powerup,
 .obstacle,
+.chaser,
 .player {
   position: absolute;
   user-select: none;
@@ -202,47 +356,254 @@ body {
 }
 
 .sea-animal {
-  opacity: 0.9;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.18));
 }
 
+/* Collectible — bobbing gold glow */
+.collectible {
+  font-size: 1.7rem;
+  z-index: 7;
+  animation: bob 1.15s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255,215,0,0.75));
+}
+.collectible.collected {
+  animation: pop-out 0.36s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Power-up — larger, purple pulsing glow */
+.powerup {
+  font-size: 2.1rem;
+  z-index: 7;
+  animation: powerup-pulse 1.0s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(190,80,255,0.85));
+}
+.powerup.collected {
+  animation: pop-out 0.36s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Obstacle */
 .obstacle {
   font-size: 2rem;
   z-index: 6;
 }
+.obstacle.sonar-blasted {
+  animation: sonar-blast 0.32s ease-out forwards;
+}
 
+/* Chaser */
+.chaser {
+  font-size: 3rem;
+  z-index: 8;
+  filter: drop-shadow(0 0 12px rgba(220,20,20,0.8));
+}
+
+/* ——— Player ——— */
 .player {
-  font-size: 2.3rem;
-  top: 50%;
-  transform: translateY(-50%);
+  font-size: 3rem;
   z-index: 10;
-  transition: transform 0.08s linear;
 }
 
-.player.hit {
-  animation: hit-flash 0.25s steps(2, end) 3;
+/* Aura ring around player (74px = ~1.5× the 3rem player emoji size) */
+.player::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 3px solid rgba(100, 210, 255, 0.65);
+  background: radial-gradient(circle, rgba(100,210,255,0.15), transparent 70%);
+  animation: aura-pulse 1.6s ease-in-out infinite;
+  pointer-events: none;
 }
 
+/* Per-character aura colours */
+.player[data-character="swimmer"]::before { border-color: rgba(100,200,255,0.7); }
+.player[data-character="ragdoll"]::before { border-color: rgba(255,180,210,0.76); }
+.player[data-character="dolphin"]::before { border-color: rgba(0,220,255,0.75); }
+.player[data-character="shark"]::before   { border-color: rgba(255,80,80,0.72); }
+.player[data-character="turtle"]::before  { border-color: rgba(80,220,80,0.72); }
+
+/* Shield state — blue bright ring */
+.player.shielded::before {
+  border-color: rgba(80,150,255,0.95);
+  border-width: 4px;
+  background: radial-gradient(circle, rgba(80,150,255,0.28), transparent 70%);
+  animation: shield-pulse 0.8s ease-in-out infinite;
+}
+
+/* Speed power-up — gold ring */
+.player.powered-speed::before {
+  border-color: rgba(255,210,0,0.95);
+  background: radial-gradient(circle, rgba(255,210,0,0.22), transparent 70%);
+}
+
+/* Magnet power-up — pink ring */
+.player.powered-magnet::before {
+  border-color: rgba(255,80,220,0.95);
+  background: radial-gradient(circle, rgba(255,80,220,0.2), transparent 70%);
+}
+
+/* Ability active — bright glow per character */
+.player.ability-active {
+  filter: drop-shadow(0 0 16px rgba(255,255,100,0.95));
+}
+.player.ability-active[data-character="swimmer"] { filter: drop-shadow(0 0 18px rgba(255,200,0,0.95)); }
+.player.ability-active[data-character="ragdoll"] { filter: drop-shadow(0 0 18px rgba(255,160,210,0.95)); }
+.player.ability-active[data-character="dolphin"] { filter: drop-shadow(0 0 18px rgba(0,210,255,0.95)); }
+.player.ability-active[data-character="shark"]   { filter: drop-shadow(0 0 18px rgba(255,60,60,0.95)); }
+.player.ability-active[data-character="turtle"]  { filter: drop-shadow(0 0 18px rgba(80,255,80,0.95)); }
+
+/* Hit bounce animation */
+.player.hit { animation: player-hit 0.46s ease-out; }
+
+/* ——— Hit vignette overlay ——— */
+.hit-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 16;
+  background: radial-gradient(ellipse at center, transparent 28%, rgba(200,0,0,0.48) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease-out;
+}
+.hit-overlay.active {
+  opacity: 1;
+  transition: none;
+}
+
+/* ——— Zone banner ——— */
+.zone-banner {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-130px);
+  background: rgba(0, 12, 40, 0.88);
+  color: #e8f8ff;
+  border: 2px solid rgba(100,200,255,0.35);
+  border-radius: 14px;
+  padding: 0.65rem 1.8rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  z-index: 18;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s;
+  opacity: 0;
+}
+.zone-banner.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ——— Floating text ——— */
+.float-text {
+  position: absolute;
+  font-size: 0.88rem;
+  font-weight: 800;
+  pointer-events: none;
+  z-index: 19;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.75);
+  white-space: nowrap;
+  animation: float-up 1.1s ease-out forwards;
+}
+
+/* ——— Controls hint ——— */
 .controls-hint {
   margin: 0;
-  padding: 0.6rem;
+  padding: 0.55rem;
   text-align: center;
   color: #eaf9ff;
-  background: rgba(0, 43, 76, 0.82);
+  background: rgba(0,43,76,0.82);
   font-weight: 600;
+  font-size: 0.8rem;
 }
 
-@keyframes hit-flash {
-  50% {
-    opacity: 0.3;
-  }
+/* ——— Game Over card extras ——— */
+#swim-gameover-screen .swim-card p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
 }
 
+/* =========================================================
+   Keyframes
+   ========================================================= */
+
+@keyframes aura-pulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1);    opacity: 0.7; }
+  50%      { transform: translate(-50%,-50%) scale(1.18); opacity: 0.32; }
+}
+
+@keyframes shield-pulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1);    opacity: 0.9; }
+  50%      { transform: translate(-50%,-50%) scale(1.14); opacity: 0.5; }
+}
+
+@keyframes bob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+@keyframes powerup-pulse {
+  0%,100% { transform: scale(1);    filter: drop-shadow(0 0 8px  rgba(190,80,255,0.7)); }
+  50%      { transform: scale(1.22); filter: drop-shadow(0 0 18px rgba(190,80,255,1)); }
+}
+
+@keyframes pop-out {
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes sonar-blast {
+  0%   { transform: scale(1);   opacity: 1; }
+  60%  { transform: scale(1.6); opacity: 0.6; }
+  100% { transform: scale(2.3); opacity: 0; }
+}
+
+@keyframes player-hit {
+  0%   { transform: translateX(0)    scale(1);    opacity: 1; }
+  18%  { transform: translateX(-18px) scale(0.82); opacity: 0.35; }
+  40%  { transform: translateX(10px)  scale(1.06); opacity: 0.85; }
+  62%  { transform: translateX(-7px)  scale(0.94); opacity: 0.5; }
+  82%  { transform: translateX(4px)   scale(1.02); opacity: 0.9; }
+  100% { transform: translateX(0)    scale(1);    opacity: 1; }
+}
+
+@keyframes screen-shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-9px); }
+  40%      { transform: translateX(9px); }
+  60%      { transform: translateX(-5px); }
+  80%      { transform: translateX(5px); }
+}
+
+@keyframes danger-pulse {
+  0%,100% { background: linear-gradient(180deg, rgba(255,255,255,0.14), transparent 45%, rgba(0,22,58,0.22)); }
+  50%      { background: linear-gradient(180deg, rgba(200,0,0,0.08), transparent 40%, rgba(200,0,0,0.16)); }
+}
+
+@keyframes float-up {
+  0%   { transform: translateY(0);    opacity: 1; }
+  70%  { transform: translateY(-42px); opacity: 1; }
+  100% { transform: translateY(-58px); opacity: 0; }
+}
+
+@keyframes ability-ready-pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+/* ——— Responsive ——— */
 @media (max-width: 700px) {
   .swim-hud {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
   }
-
   .swim-btn-link {
     margin-left: 0;
     margin-top: 0.5rem;
