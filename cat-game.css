@@ -1,0 +1,242 @@
+:root {
+  --city-dark: #37474f;
+  --city-mid: #607d8b;
+  --city-light: #eceff1;
+  --panel: rgba(255, 255, 255, 0.94);
+  --text: #263238;
+  --hp: #43a047;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--city-light), #cfd8dc 38%, var(--city-mid));
+}
+
+.cat-screen {
+  display: none;
+  min-height: 100vh;
+}
+
+.cat-screen.active {
+  display: flex;
+}
+
+#cat-start-screen,
+#cat-gameover-screen {
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.cat-card {
+  width: min(520px, 100%);
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 1.3rem;
+  box-shadow: 0 14px 30px rgba(38, 50, 56, 0.24);
+  text-align: center;
+}
+
+.cat-back-link {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  color: #263238;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cat-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.7rem;
+  margin: 0.7rem 0 1rem;
+}
+
+.cat-option-btn {
+  border: 2px solid #cfd8dc;
+  border-radius: 12px;
+  background: #f7f9fa;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.cat-option-btn .emoji {
+  display: block;
+  font-size: 1.9rem;
+  margin-bottom: 0.15rem;
+}
+
+.cat-option-btn.active {
+  border-color: #607d8b;
+  box-shadow: 0 0 0 3px rgba(96, 125, 139, 0.2);
+}
+
+.cat-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, #78909c, #455a64);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cat-btn-link {
+  margin-left: 0.35rem;
+}
+
+#cat-game-screen {
+  flex-direction: column;
+}
+
+.cat-hud {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 2fr) 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.8rem;
+  background: rgba(38, 50, 56, 0.88);
+  color: #f8fbfc;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.hud-item strong {
+  font-size: 1.05rem;
+}
+
+.hp-wrap {
+  align-items: stretch;
+}
+
+.hp-bar-shell {
+  width: 100%;
+  height: 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+
+.hp-bar-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--hp);
+  transition: width 0.2s linear, background-color 0.2s linear;
+}
+
+#ingame-cat {
+  border: none;
+  border-radius: 10px;
+  padding: 0.4rem;
+  font-weight: 700;
+  color: #263238;
+}
+
+#cat-stage {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#cat-stage::before,
+#cat-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#cat-stage::before {
+  background: radial-gradient(circle at 20% 22%, rgba(255, 255, 255, 0.4), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 45%);
+}
+
+#cat-stage::after {
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.08));
+}
+
+.city-layer,
+.obstacle-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.city-item,
+.obstacle,
+.player {
+  position: absolute;
+  user-select: none;
+  line-height: 1;
+}
+
+.city-item {
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.obstacle {
+  font-size: 2rem;
+  z-index: 6;
+}
+
+.player {
+  font-size: 2.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  transition: transform 0.08s linear;
+}
+
+.player.hit {
+  animation: hit-flash 0.25s steps(2, end) 3;
+}
+
+.controls-hint {
+  margin: 0;
+  padding: 0.6rem;
+  text-align: center;
+  color: #f5fbff;
+  background: rgba(38, 50, 56, 0.86);
+  font-weight: 600;
+}
+
+@keyframes hit-flash {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 700px) {
+  .cat-hud {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-btn-link {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
