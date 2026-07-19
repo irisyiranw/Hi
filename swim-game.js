@@ -273,11 +273,21 @@ function createObstacle() {
 }
 
 function intersectsPlayer(obs) {
-  const pt = gameState.playerY,            pb = gameState.playerY + PLAYER_SIZE;
-  const pl = PLAYER_LEFT_OFFSET,           pr = PLAYER_LEFT_OFFSET + PLAYER_SIZE;
-  const ol = obs.x + COLLISION_PADDING,    obstacleRight = obs.x + obs.size - COLLISION_PADDING;
-  const ot = obs.y + COLLISION_PADDING,    obstacleBottom = obs.y + obs.size - COLLISION_PADDING;
-  return pr > ol && pl < obstacleRight && pb > ot && pt < obstacleBottom;
+  const playerTop = gameState.playerY;
+  const playerBottom = gameState.playerY + PLAYER_SIZE;
+  const playerLeft = PLAYER_LEFT_OFFSET;
+  const playerRight = PLAYER_LEFT_OFFSET + PLAYER_SIZE;
+  const obstacleLeft = obs.x + COLLISION_PADDING;
+  const obstacleRight = obs.x + obs.size - COLLISION_PADDING;
+  const obstacleTop = obs.y + COLLISION_PADDING;
+  const obstacleBottom = obs.y + obs.size - COLLISION_PADDING;
+
+  return (
+    playerRight > obstacleLeft &&
+    playerLeft < obstacleRight &&
+    playerBottom > obstacleTop &&
+    playerTop < obstacleBottom
+  );
 }
 
 function updateObstacles(dt) {

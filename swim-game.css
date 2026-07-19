@@ -423,11 +423,11 @@ kbd {
 }
 
 /* Per-character aura colours */
-.player[data-character="swimmer"]::before { border-color: rgba(100,200,255,0.7); }
-.player[data-character="ragdoll"]::before { border-color: rgba(255,180,210,0.76); }
+.player[data-character="swimmer"]::before { border-color: rgba(100,200,255,0.75); }
+.player[data-character="ragdoll"]::before { border-color: rgba(255,180,210,0.75); }
 .player[data-character="dolphin"]::before { border-color: rgba(0,220,255,0.75); }
-.player[data-character="shark"]::before   { border-color: rgba(255,80,80,0.72); }
-.player[data-character="turtle"]::before  { border-color: rgba(80,220,80,0.72); }
+.player[data-character="shark"]::before   { border-color: rgba(255,80,80,0.75); }
+.player[data-character="turtle"]::before  { border-color: rgba(80,220,80,0.75); }
 
 /* Shield state — blue bright ring */
 .player.shielded::before {
