@@ -8,23 +8,95 @@
 </head>
 <body>
   <div id="cat-app">
+
+    <!-- ===== START SCREEN ===== -->
     <section id="cat-start-screen" class="cat-screen active">
       <div class="cat-card">
         <a href="index.html" class="cat-back-link">← Back to Site</a>
         <h1>🐱 Cat Chase</h1>
-        <p>Dash through the city, dodge obstacles, and keep your cat in the chase.</p>
+        <p>A dog is hot on your tail through 5 city zones! Dodge obstacles, collect treats, and use your special ability to escape!</p>
 
         <h2>Choose Your Cat</h2>
         <div id="cat-options" class="cat-options" aria-label="Cat choices"></div>
+        <details class="how-to-play">
+          <summary>📖 How to Play &amp; Object Guide</summary>
+          <div class="guide-content">
+
+            <div class="guide-section">
+              <h3>🎮 Controls</h3>
+              <p>↑ / W — Run Up &nbsp;·&nbsp; ↓ / S — Run Down &nbsp;·&nbsp; <kbd>Space</kbd> / ⚡ button — Special Ability</p>
+            </div>
+
+            <div class="guide-section">
+              <h3>⚠️ Avoid These</h3>
+              <div class="guide-items">
+                <div class="guide-item">
+                  <span class="guide-icon">🐶 🧱 🗑️</span>
+                  <div><strong>Obstacles</strong> — Costs 20 HP and lets the chaser gain on you!</div>
+                </div>
+                <div class="guide-item">
+                  <span class="guide-icon">🐕</span>
+                  <div><strong>The Dog</strong> — Speeds up each zone. Caught = Game Over!</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>⭐ Collect These</h3>
+              <div class="guide-items">
+                <div class="guide-item">
+                  <span class="guide-icon">🐟 🧶 🎀 🐾</span>
+                  <div><strong>Treats</strong> — +10 score &amp; push the dog back!</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>🎁 Power-Ups <small>(rare glowing items)</small></h3>
+              <div class="guide-items">
+                <div class="guide-item"><span class="guide-icon">⚡</span><div><strong>Speed Boost</strong> — Run 1.85× faster for 5 s.</div></div>
+                <div class="guide-item"><span class="guide-icon">🛡️</span><div><strong>Shield</strong> — Blocks the next obstacle hit completely.</div></div>
+                <div class="guide-item"><span class="guide-icon">💊</span><div><strong>HP Kit</strong> — Restores 30 HP.</div></div>
+                <div class="guide-item"><span class="guide-icon">🧲</span><div><strong>Magnet</strong> — Auto-collects nearby treats for 6 s.</div></div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>🏙️ The 5 Zones</h3>
+              <div class="guide-items">
+                <div class="guide-item"><span class="guide-icon">🏡</span><div><strong>Backyard</strong> (0 m) — Calm start.</div></div>
+                <div class="guide-item"><span class="guide-icon">🏘️</span><div><strong>Neighborhood</strong> (200 m) — Faster pace, more obstacles.</div></div>
+                <div class="guide-item"><span class="guide-icon">🏪</span><div><strong>Downtown</strong> (500 m) — Busy streets, traffic cones!</div></div>
+                <div class="guide-item"><span class="guide-icon">🚗</span><div><strong>Highway</strong> (900 m) — Very fast. Watch out!</div></div>
+                <div class="guide-item"><span class="guide-icon">🌆</span><div><strong>City Center</strong> (1400 m) — Maximum chaos. Good luck!</div></div>
+              </div>
+            </div>
+
+            <div class="guide-section">
+              <h3>⚡ Special Abilities <small>(Press Space)</small></h3>
+              <div class="guide-items">
+                <div class="guide-item"><span class="guide-icon">🐱</span><div><strong>Tabby — Pounce:</strong> Doubles speed for 3.5 s. (8 s cooldown)</div></div>
+                <div class="guide-item"><span class="guide-icon">🐈‍⬛</span><div><strong>Black Cat — Shadow:</strong> Full invincibility for 4 s! (12 s cooldown)</div></div>
+                <div class="guide-item"><span class="guide-icon">🐯</span><div><strong>Tiger Cat — Roar:</strong> Pushes dog far back! (9 s cooldown)</div></div>
+                <div class="guide-item"><span class="guide-icon">🦁</span><div><strong>Lion Cat — Pride Roar:</strong> Clears ALL obstacles! (10 s cooldown)</div></div>
+              </div>
+            </div>
+
+          </div>
+        </details>
+
         <button id="start-cat-btn" class="cat-btn">🐾 Start Chase</button>
       </div>
     </section>
 
+    <!-- ===== GAME SCREEN ===== -->
     <section id="cat-game-screen" class="cat-screen">
       <header class="cat-hud">
         <div class="hud-item">
-          <span>Chase</span>
+          <span>Distance</span>
           <strong id="chase-display">0m</strong>
+          <span class="hud-sub">Score: <strong id="score-display">0</strong></span>
+          <span id="zone-display" class="hud-zone">🏡 Backyard</span>
         </div>
         <div class="hud-item hp-wrap">
           <span>HP</span>
@@ -33,31 +105,47 @@
           </div>
           <strong id="hp-text">100</strong>
         </div>
+        <div class="hud-item lead-wrap">
+          <span>Lead</span>
+          <div class="lead-bar-shell">
+            <div id="lead-bar-fill" class="lead-bar-fill"></div>
+          </div>
+          <span id="ability-display" class="ability-display ability-ready">⚡ Pounce ✓ READY</span>
+        </div>
         <div class="hud-item">
           <label for="ingame-cat">Cat</label>
           <select id="ingame-cat" aria-label="Change cat during game"></select>
+          <button id="ability-btn" class="ability-btn" type="button">⚡ Ability</button>
         </div>
       </header>
 
       <main id="cat-stage" aria-label="Cat chase game area">
-        <div id="city-layer" class="city-layer" aria-hidden="true"></div>
-        <div id="obstacle-layer" class="obstacle-layer" aria-hidden="true"></div>
-        <div id="player" class="player" aria-label="Player cat"></div>
+        <div id="city-layer"        class="city-layer"        aria-hidden="true"></div>
+        <div id="collectible-layer" class="collectible-layer" aria-hidden="true"></div>
+        <div id="powerup-layer"     class="powerup-layer"     aria-hidden="true"></div>
+        <div id="obstacle-layer"    class="obstacle-layer"    aria-hidden="true"></div>
+        <div id="chaser"            class="chaser"            aria-hidden="true">🐕</div>
+        <div id="player"            class="player"            aria-label="Player cat"></div>
+        <div id="hit-overlay"       class="hit-overlay"       aria-hidden="true"></div>
+        <div id="zone-banner"       class="zone-banner"       aria-hidden="true">🏡 Backyard</div>
       </main>
 
-      <p class="controls-hint">Use ↑/↓ or W/S to move up and down.</p>
+      <p class="controls-hint">↑/↓ or W/S to move &nbsp;·&nbsp; <kbd>Space</kbd>/⚡ = special ability &nbsp;·&nbsp; Collect 🐟🧶 for score</p>
     </section>
 
+    <!-- ===== GAME OVER SCREEN ===== -->
     <section id="cat-gameover-screen" class="cat-screen">
       <div class="cat-card">
-        <h2>Chase Over 💥</h2>
-        <p id="final-chase">You chased 0m</p>
+        <h2>Caught! 💥</h2>
+        <p id="final-zone">Zone: 🏡 Backyard</p>
+        <p id="final-chase">You ran 0m</p>
+        <p id="final-score">Score: 0</p>
         <button id="restart-cat-btn" class="cat-btn">🔁 Play Again</button>
         <a href="index.html" class="cat-btn cat-btn-link">🏠 Back Home</a>
       </div>
     </section>
-  </div>
 
+  </div>
   <script src="cat-game.js"></script>
 </body>
 </html>
